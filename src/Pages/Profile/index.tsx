@@ -4,8 +4,6 @@ import avata from '../../assets/images/avt.png';
 import { iconBell } from '../../assets/svg/svg';
 import UserInFormation from './content';
 
-const { Content } = Layout;
-
 function Profile() {
     return (
         <Layout>
