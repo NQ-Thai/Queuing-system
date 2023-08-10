@@ -1,3 +1,5 @@
+/*---Login---*/
+
 .container {
     display: flex;
     height: 100vh;
@@ -6,8 +8,9 @@
 .left {
     /* flex: 1; */
     background-color: #ececec;
+    /* background-color: #e7e9f2; */
     height: 100%;
-    width: 40%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center; /* Ngang */
@@ -17,19 +20,42 @@
     flex: 1;
     background-color: #fff;
     height: 100%;
-    width: 60%;
+    width: 65%;
 }
 
 .img-logo {
     width: 170px;
     height: 136px;
-    margin: 62px 160px 0 120px;
+    margin: 62px 0 0 0;
 }
 
 .img-logo2 {
     width: 580px;
     height: 594.06px;
-    margin: 40px 50px 0 0;
+    margin-top: 7vh;
+    margin-left: 13vh;
+}
+
+.image-text1 {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    color: #ff7506;
+    font-size: 34px;
+    font-weight: normal;
+    line-height: 51px;
+    margin-left: 310px;
+}
+
+.image-text2 {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    color: #ff7506;
+    margin-left: 310px;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 54px;
 }
 
 .button .text-button {
@@ -48,6 +74,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: #e73f3f;
+    text-decoration: none;
 }
 
 .text-input {
@@ -59,10 +86,245 @@
     color: #37474f;
 }
 
-.text-button {
+.text-button-login {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+/* Sider */
+
+.custom-menu .ant-menu-item:hover {
+    background-color: yellow; /* Màu nền màu vàng khi hover */
+    /* Các thuộc tính màu khác (nếu cần) */
+}
+
+/*---Auth Email---*/
+
+.authEmail-text {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 33px;
+    letter-spacing: 0em;
+    color: #282739;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.img-logo3 {
+    margin-top: 10vh;
+    margin-left: 3vw;
+}
+
+/*---Trang chủ---*/
+
+/* Sider */
+
+.sider {
+    height: 100vh;
+    width: 200px;
+}
+
+/* Sider.css */
+.menu-width {
+    width: 100%;
+}
+
+.icon-menu-sider {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+    color: #a9a9b0;
+}
+
+.text-menu {
+    vertical-align: middle;
+}
+
+.icon-button-sider {
+    height: 20px;
+    width: 20px;
+    margin-right: 12px;
+    vertical-align: middle;
+    color: #ff7506;
+    font-weight: 600;
+}
+
+.text-button-sider {
+    color: #ff7506;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    vertical-align: middle;
+}
+
+.button-sider {
+    background-color: #ff7506;
+    border-color: #fff2e7;
+    height: 48px;
+    width: 176px;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light > .ant-menu .ant-menu-item-selected {
+    background-color: #ff7506;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light > .ant-menu .ant-menu-item-selected {
+    color: #ffffff;
+}
+
+.text-header-content {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff9138;
+    margin: 24px 0 24px 24px;
+}
+
+.title2-dashboard {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin: 0 0 16px 24px;
+}
+
+.icon-wrapper {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 815px;
+    padding: 6px;
+}
+
+.icon-wrapper-information {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 748px;
+    padding: 6px;
+}
+
+.icon-dashboard01-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    background-color: #e1f3f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 12px 0 0;
+    padding: 12px;
+}
+
+.icon-dashboard02-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    background-color: #dbf8d2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 12px 0 0;
+    padding: 12px;
+}
+
+.icon-dashboard03-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    background-color: #f7ebd4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 12px 0 0;
+    padding: 12px;
+}
+
+.icon-dashboard04-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    background-color: #f8dbd9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 12px 0 0;
+    padding: 12px;
+}
+
+.text-hello {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #7e7d88;
+}
+
+.text-capso {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+.title-chart {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 24px 0 0 24px;
+}
+
+/* Information */
+
+.text-name-right {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+.text-menu-under {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #282739;
+}
+
+.text-change-input {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #282739;
 }

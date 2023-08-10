@@ -1,26 +1,19 @@
 import { Button, Input } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import logo2 from '../../assets/images/Group 341.png';
 import logo from '../../assets/images/Logo alta.png';
 
-const onFinish = (values: any) => {
-    console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-};
-
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
-
 function Login() {
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        navigate('/dashboard');
+    };
+
     return (
         <div className="container">
             <div className="left">
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <img className="img-logo" src={logo} alt="" />
                 </div>
                 <div style={{ margin: '60px 0 16px 0' }}>
@@ -83,15 +76,16 @@ function Login() {
                     </div>
                 </div>
                 <div style={{ marginTop: '5px' }}>
-                    <span
+                    <Link
                         style={{
                             font: 'Nunito',
                             marginRight: '310px',
                         }}
+                        to="/authemail"
                         className="forgotPass-text"
                     >
                         Quên mật khẩu?
-                    </span>
+                    </Link>
                 </div>
 
                 <div>
@@ -108,13 +102,22 @@ function Login() {
                             margin: '20px 0 0 0',
                             borderRadius: '8px',
                         }}
+                        onClick={handleLogin}
                     >
-                        <span className="text-button">Đăng nhập</span>
+                        <span style={{ font: 'Nunito' }} className="text-button-login">
+                            Đăng nhập
+                        </span>
                     </Button>
                 </div>
             </div>
             <div className="right">
                 <img className="img-logo2" src={logo2} alt="" />
+                <span style={{ font: 'Nunito' }} className="image-text1">
+                    Hệ thống
+                </span>
+                <span style={{ font: 'Nunito' }} className="image-text2">
+                    QUẢN LÝ XẾP HÀNG
+                </span>
             </div>
         </div>
     );
