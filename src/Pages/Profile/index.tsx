@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
-import avata from '../../assets/images/avt.png';
+import avata from '../../assets/images/avata.jpg';
 import { iconBell } from '../../assets/svg/svg';
 import UserInFormation from './content';
 
@@ -19,11 +19,28 @@ function Profile() {
                             {iconBell}
                         </div>
                         <Link to="/profile" style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ display: 'inline-block', marginRight: '8px' }}>
-                                <img src={avata} alt="" />
+                            <div
+                                style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '50%',
+                                    overflow: 'hidden',
+                                    marginRight: '8px',
+                                }}
+                            >
+                                <img
+                                    src={avata}
+                                    alt=""
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
 
-                            <div style={{ display: 'inline-block', textAlign: 'left' }}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    textAlign: 'left',
+                                }}
+                            >
                                 <span
                                     className="text-hello"
                                     style={{ font: 'Nunito', display: 'block' }}
@@ -34,7 +51,7 @@ function Profile() {
                                     className="text-name-right"
                                     style={{ font: 'Nunito', display: 'block' }}
                                 >
-                                    Lê Quỳnh Ái Vân
+                                    Da Trắng Tóc Xù
                                 </span>
                             </div>
                         </Link>

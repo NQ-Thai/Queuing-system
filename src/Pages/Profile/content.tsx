@@ -1,5 +1,5 @@
 import { Input, Layout } from 'antd';
-import changeAvata from '../../assets/images/avt2.png';
+import changeAvata from '../../assets/images/avata.jpg';
 
 const { Content } = Layout;
 
@@ -29,15 +29,36 @@ function UserInFormation() {
                             marginTop: '40px',
                         }}
                     >
-                        <div>
-                            <img
-                                style={{ height: '248px', width: '248px' }}
-                                src={changeAvata}
-                                alt=""
-                            />
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <span className="text-menu-under">Lê Quỳnh Ái Vân</span>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: '248px',
+                                    height: '248px',
+                                    borderRadius: '50%',
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <img
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    src={changeAvata}
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    marginTop: '10px',
+                                }}
+                            >
+                                <span className="text-menu-under">Da Trắng Tóc xù</span>
+                            </div>
                         </div>
                     </div>
                     <div

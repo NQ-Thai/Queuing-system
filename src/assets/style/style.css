@@ -8,12 +8,12 @@
 .left {
     /* flex: 1; */
     background-color: #ececec;
-    /* background-color: #e7e9f2; */
+
     height: 100%;
     width: 35%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Ngang */
+    align-items: center;
 }
 
 .right {
@@ -120,6 +120,42 @@
 
 /*---Trang chủ---*/
 
+.text-hello {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #7e7d88;
+}
+
+.text-capso {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+.title-chart {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 20px 0 0 20px;
+}
+
+.title-dropdown {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin: 0 8px 0 0;
+}
+
 /* Sider */
 
 .sider {
@@ -185,7 +221,7 @@
     line-height: 30px;
     letter-spacing: 0em;
     text-align: left;
-    color: #ff9138;
+    color: #ff7506;
     margin: 24px 0 24px 24px;
 }
 
@@ -273,33 +309,6 @@
     padding: 12px;
 }
 
-.text-hello {
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #7e7d88;
-}
-
-.text-capso {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #535261;
-}
-
-.title-chart {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 30px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin: 24px 0 0 24px;
-}
-
 /* Information */
 
 .text-name-right {
@@ -327,4 +336,131 @@
     letter-spacing: 0em;
     text-align: left;
     color: #282739;
+}
+
+/* Thiết bị */
+
+.icon-wrapper-thietbi {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 638px;
+    padding: 6px;
+}
+
+.text-first-head {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #7e7d88;
+}
+
+.title-select-thietbi {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #282739;
+}
+
+/* Dịch vụ  */
+
+.icon-wrapper-dichvu {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 641px;
+    padding: 6px;
+}
+
+/* Cấp số  */
+
+.icon-wrapper-capso {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 657px;
+    padding: 6px;
+}
+
+/* Báo cáo  */
+
+.icon-wrapper-baocao {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 693px;
+    padding: 6px;
+}
+
+.title2-baocao {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #282739;
+    margin: 0 0 0 24px;
+}
+
+/* Cài đặt  */
+
+.icon-wrapper-caidat {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 589px;
+    padding: 6px;
+}
+
+.custom-search-input .ant-input-search-button {
+    display: none;
+}
+
+/* Table */
+
+.custom-table .ant-table-thead > tr > th {
+    background-color: #ff9138;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(even) {
+    background-color: #fff2e7; /* Màu nền cho dòng chẵn */
+}
+
+.custom-table .ant-table-tbody > tr:nth-child(odd) {
+    background-color: #ffffff; /* Màu nền cho dòng lẻ */
 }
