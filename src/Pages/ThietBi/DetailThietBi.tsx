@@ -2,22 +2,38 @@ import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import avata from '../../assets/images/avata.jpg';
 import { iconBell } from '../../assets/svg/svg';
-import ContentCapSo from './content';
 
-function CapSo() {
+import ChiTietContent from './DetailContent';
+
+function ChiTiet() {
     return (
         <Layout>
             <Layout>
                 <div style={{ width: '1240px', height: '88px', marginBottom: '5px' }}>
-                    <div style={{ font: 'Nunito', display: 'flex', alignItems: 'center' }}>
-                        <span className="text-header-content">
+                    <div
+                        style={{
+                            font: 'Nunito',
+                            display: 'flex',
+                            alignItems: 'center',
+                            margin: '18px 0 0 24px',
+                        }}
+                    >
+                        <span>
                             <span className="text-first-head" style={{ font: 'Nunito' }}>
-                                Cấp số&nbsp;&nbsp;&gt;&nbsp;&nbsp;
+                                Thiết bị&nbsp;&nbsp;&gt;&nbsp;&nbsp;
                             </span>
-                            Danh sách cấp số
+                            <Link to={'/thietbi'}>
+                                <span className="text-first-head">
+                                    Danh sách thiết bị&nbsp;&nbsp;&gt;
+                                </span>
+                            </Link>
+
+                            <span className="text-add-header-content">
+                                &nbsp;&nbsp;Chi tiết thiết bị
+                            </span>
                         </span>
                         <div
-                            className="icon-wrapper-capso"
+                            className="icon-wrapper-thietbi-detail"
                             style={{ display: 'inline-block', verticalAlign: 'middle' }}
                         >
                             {iconBell}
@@ -58,13 +74,13 @@ function CapSo() {
                 </div>
                 <div style={{ marginBottom: '5px' }}>
                     <span className="title2-dashboard" style={{ font: 'Nunito' }}>
-                        Quản lí cấp số
+                        Quản lý thiết bị
                     </span>
                 </div>
-                <ContentCapSo />
+                <ChiTietContent />
             </Layout>
         </Layout>
     );
 }
 
-export default CapSo;
+export default ChiTiet;

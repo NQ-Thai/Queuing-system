@@ -362,6 +362,87 @@
     color: #7e7d88;
 }
 
+/* Add */
+
+.icon-wrapper-thietbi-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 473px;
+    padding: 6px;
+}
+
+.text-add-header-content {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin: 24px 0 24px 0;
+}
+
+.text-add-content {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin: 16px 0 10px 0;
+}
+
+.text-add-required {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #7e7d88;
+}
+
+/* Chi tiết */
+
+.icon-wrapper-thietbi-detail {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24.5px 0 457px;
+    padding: 6px;
+}
+
+.icon-wrapper-thietbi-update {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24.5px 0 441px;
+    padding: 6px;
+}
+
+.text-detail {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
 .title-select-thietbi {
     font-size: 16px;
     font-weight: 600;
@@ -369,6 +450,15 @@
     letter-spacing: 0em;
     text-align: left;
     color: #282739;
+}
+
+.text-add-button {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #ff7506;
 }
 
 /* Dịch vụ  */
@@ -386,7 +476,49 @@
     padding: 6px;
 }
 
+/* Dropdown */
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-item-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
+    .ant-dropdown-menu
+    .ant-dropdown-menu-submenu-title-active {
+    background-color: #fff2e7;
+}
+
 /* Cấp số  */
+
+.icon-wrapper-capso-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 515px;
+    padding: 6px;
+}
 
 .icon-wrapper-capso {
     display: inline-block;
@@ -398,6 +530,107 @@
     justify-content: center;
     align-items: center;
     margin: 0 24px 0 657px;
+    padding: 6px;
+}
+
+.icon-wrapper-thietbi-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24.5px 0 473px;
+    padding: 6px;
+}
+
+.text-add-capso-header {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin-top: 24px;
+}
+
+.text-add-capso {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+/* Modal */
+
+.text-title-modal-capso {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+.number-title-modal-capso {
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 60px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+}
+
+.text1-DV-capso {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.text2-DV-capso {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.text-time-modal-capso {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 33px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ffffff;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-modal .ant-modal-content {
+    position: relative;
+    background-color: #ffffff;
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+        0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    pointer-events: auto;
+    padding: 0;
+}
+
+.icon-wrapper-capso-detail {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24.5px 0 541px;
     padding: 6px;
 }
 
@@ -423,7 +656,16 @@
     letter-spacing: 0em;
     text-align: left;
     color: #282739;
-    margin: 0 0 0 24px;
+}
+
+.title-baocao {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #282739;
+    margin-left: 24px;
 }
 
 /* Cài đặt  */
@@ -463,4 +705,59 @@
 
 .custom-table .ant-table-tbody > tr:nth-child(odd) {
     background-color: #ffffff; /* Màu nền cho dòng lẻ */
+}
+
+/* table.css */
+.ant-table-tbody > tr > td {
+    border-right: 1px solid #f5e3cd;
+}
+
+/* table.css */
+/* Thêm gạch chia cột từ CSS của bạn */
+.ant-table-thead th {
+    border-right: 1px solid #e8e8e8 !important;
+    height: 3rem; /* Điều chỉnh độ cao của dòng */
+    line-height: 3rem; /* Điều chỉnh chiều cao của vùng chứa nội dung */
+}
+:where(.css-dev-only-do-not-override-19gw05y).ant-table-wrapper
+    .ant-table-thead
+    > tr
+    > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
+        [colspan]
+    )::before,
+:where(.css-dev-only-do-not-override-19gw05y).ant-table-wrapper
+    .ant-table-thead
+    > tr
+    > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
+        [colspan]
+    )::before {
+    position: fixed;
+    width: 1px;
+    height: 1.6em;
+    background-color: #ffffff;
+    transform: translateY(-50%);
+}
+
+/* Popover */
+.expanded-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ff7506; /* Màu viền cam */
+    border-radius: 10px; /* Độ cong viền */
+    padding: 10px;
+    z-index: 1;
+    width: 395px;
+    white-space: pre-line;
+    word-wrap: break-word;
+    overflow: auto;
+    max-height: calc(100vh - 20px);
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.expanded-content.show {
+    display: block;
+    opacity: 1;
 }

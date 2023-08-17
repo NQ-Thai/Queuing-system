@@ -8,39 +8,35 @@ interface DataType {
     madichVu: string;
     tendichVu: string;
     moTa: string;
-    trangThaiHoatdong: string[];
+    trangThaiHoatdong: string;
 }
 
-const renderKetNoi = (trangThaiKetNoi: string) => {
-    const iconColor = trangThaiKetNoi === 'Mất kết nối' ? '#FD5959' : '#03AC00';
-
-    return (
-        <span
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
-            <BsFillCircleFill style={{ color: iconColor, marginRight: '5px' }} />
-            {trangThaiKetNoi}
-        </span>
-    );
-};
-
 const renderHoatDong = (trangThaiHoatdong: string) => {
-    const iconColor = trangThaiHoatdong === 'Ngưng hoạt động' ? '#FD5959' : '#03AC00';
-
-    return (
-        <span
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
-            <BsFillCircleFill style={{ color: iconColor, marginRight: '5px' }} />
-            {trangThaiHoatdong}
-        </span>
-    );
+    if (trangThaiHoatdong === 'Hoạt động') {
+        return (
+            <span
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+            >
+                <BsFillCircleFill style={{ color: '#34CD26', marginRight: '5px' }} />
+                {trangThaiHoatdong}
+            </span>
+        );
+    } else if (trangThaiHoatdong === 'Ngưng hoạt động') {
+        return (
+            <span
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+            >
+                <BsFillCircleFill style={{ color: '#EC3740', marginRight: '5px' }} />
+                {trangThaiHoatdong}
+            </span>
+        );
+    }
 };
 
 const columns: ColumnsType<DataType> = [
@@ -95,28 +91,28 @@ const data: DataType[] = [
         madichVu: 'KIO_1',
         tendichVu: 'Kiosk',
         moTa: 'Mô tả dịch vụ 1',
-        trangThaiHoatdong: ['Hoạt động'],
+        trangThaiHoatdong: 'Hoạt động',
     },
     {
         key: '2',
         madichVu: 'KIO_1',
         tendichVu: 'Kiosk',
         moTa: 'Hoạt động',
-        trangThaiHoatdong: ['Hoạt động'],
+        trangThaiHoatdong: 'Hoạt động',
     },
     {
         key: '3',
         madichVu: 'KIO_1',
         tendichVu: 'Kiosk',
         moTa: 'Hoạt động',
-        trangThaiHoatdong: ['Hoạt động'],
+        trangThaiHoatdong: 'Ngưng hoạt động',
     },
     {
         key: '4',
         madichVu: 'KIO_1',
         tendichVu: 'Kiosk',
         moTa: 'Hoạt động',
-        trangThaiHoatdong: ['Hoạt động'],
+        trangThaiHoatdong: 'Hoạt động',
     },
 ];
 

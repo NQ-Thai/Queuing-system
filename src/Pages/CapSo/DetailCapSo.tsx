@@ -2,22 +2,35 @@ import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import avata from '../../assets/images/avata.jpg';
 import { iconBell } from '../../assets/svg/svg';
-import ContentCapSo from './content';
+import DetailContent from './DetailContent';
 
-function CapSo() {
+function DetailCapSo() {
     return (
         <Layout>
             <Layout>
                 <div style={{ width: '1240px', height: '88px', marginBottom: '5px' }}>
-                    <div style={{ font: 'Nunito', display: 'flex', alignItems: 'center' }}>
-                        <span className="text-header-content">
+                    <div
+                        style={{
+                            font: 'Nunito',
+                            display: 'flex',
+                            alignItems: 'center',
+                            margin: '18px 0 0 24px',
+                        }}
+                    >
+                        <span>
                             <span className="text-first-head" style={{ font: 'Nunito' }}>
-                                Cấp số&nbsp;&nbsp;&gt;&nbsp;&nbsp;
+                                Thiết bị&nbsp;&nbsp;&gt;&nbsp;&nbsp;
                             </span>
-                            Danh sách cấp số
+                            <Link to={'/capso'}>
+                                <span className="text-first-head">
+                                    Danh sách cấp số&nbsp;&nbsp;&gt;
+                                </span>
+                            </Link>
+
+                            <span className="text-add-header-content">&nbsp;&nbsp;Chi tiết</span>
                         </span>
                         <div
-                            className="icon-wrapper-capso"
+                            className="icon-wrapper-capso-detail"
                             style={{ display: 'inline-block', verticalAlign: 'middle' }}
                         >
                             {iconBell}
@@ -58,13 +71,13 @@ function CapSo() {
                 </div>
                 <div style={{ marginBottom: '5px' }}>
                     <span className="title2-dashboard" style={{ font: 'Nunito' }}>
-                        Quản lí cấp số
+                        Quản lý cấp số
                     </span>
                 </div>
-                <ContentCapSo />
+                <DetailContent />
             </Layout>
         </Layout>
     );
 }
 
-export default CapSo;
+export default DetailCapSo;

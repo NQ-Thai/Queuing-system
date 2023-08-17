@@ -1,6 +1,7 @@
 import { Button, Dropdown, Layout, Menu, MenuProps, message } from 'antd';
 
 import { CaretDownOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import SearchThietBi from './Search';
 import TableThietBi from './Table';
 
@@ -30,7 +31,7 @@ const itemsKetNoi: MenuItemType[] = [
         key: '1',
     },
     {
-        label: 'Kết nỗi',
+        label: 'Kết nối',
         key: '2',
     },
     {
@@ -98,7 +99,7 @@ function ContentThietBi() {
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
-                                            height: '6px',
+                                            height: '12px',
                                             width: '12px',
                                             marginRight: '10px',
                                         }}
@@ -147,7 +148,7 @@ function ContentThietBi() {
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
-                                            height: '6px',
+                                            height: '12px',
                                             width: '12px',
                                             marginRight: '10px',
                                         }}
@@ -177,8 +178,48 @@ function ContentThietBi() {
                     </div>
                 </div>
             </div>
-            <div>
-                <TableThietBi />
+
+            <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
+                    <TableThietBi />
+                </div>
+                <Link to="/themthietbi">
+                    <div
+                        id="button"
+                        style={{
+                            backgroundColor: '#FFF2E7',
+                            height: '94px',
+                            width: '80px',
+                            textAlign: 'center',
+                            padding: '10px',
+                            borderRadius: '8px 0px 0px 8px',
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: '28px',
+                                width: '28px',
+                                backgroundColor: '#FF9138',
+                                borderRadius: '7px',
+                                overflow: 'hidden',
+                                margin: '0 0 10px 15px',
+                            }}
+                        >
+                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>
+                                +
+                            </span>
+                        </div>
+
+                        <span className="text-add-button" style={{ font: 'Nunito' }}>
+                            Thêm <br />
+                            thiết bị
+                        </span>
+                    </div>
+                </Link>
             </div>
         </Content>
     );

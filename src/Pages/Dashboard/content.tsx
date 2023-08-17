@@ -94,7 +94,7 @@ function ContentDashBoard() {
                             style={{ display: 'inline-block', textAlign: 'left' }}
                         >
                             <span style={{ font: 'Nunito', display: 'block' }}>Số thứ tự</span>
-                            <span style={{ font: 'Nunito', display: 'block' }}>đã cấp</span>
+                            <span style={{ font: 'Nunito', display: 'block' }}>đã sử dụng</span>
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@ function ContentDashBoard() {
                             style={{ display: 'inline-block', textAlign: 'left' }}
                         >
                             <span style={{ font: 'Nunito', display: 'block' }}>Số thứ tự</span>
-                            <span style={{ font: 'Nunito', display: 'block' }}>đã cấp</span>
+                            <span style={{ font: 'Nunito', display: 'block' }}>đang chờ</span>
                         </div>
                     </div>
 
@@ -144,7 +144,7 @@ function ContentDashBoard() {
                             style={{ display: 'inline-block', textAlign: 'left' }}
                         >
                             <span style={{ font: 'Nunito', display: 'block' }}>Số thứ tự</span>
-                            <span style={{ font: 'Nunito', display: 'block' }}>đã cấp</span>
+                            <span style={{ font: 'Nunito', display: 'block' }}>đã bỏ qua</span>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@ function ContentDashBoard() {
                             <Space>
                                 Ngày
                                 <CaretDownOutlined
-                                    style={{ color: '#FF7506', height: '6px', width: '12px' }}
+                                    style={{ color: '#FF7506', height: '12px', width: '12px' }}
                                 />
                             </Space>
                         </Button>

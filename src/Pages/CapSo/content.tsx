@@ -11,16 +11,12 @@ import {
 
 import { CalendarOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import SearchThietBi from '../ThietBi/Search';
-import TableDichVu from './Table';
+import SearchCapSo from './Search';
+import TableCapSo from './Table';
 
 type MenuItemType = {
     label: string;
     key: string;
-};
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
 };
 
 const itemsDichVu: MenuItemType[] = [
@@ -29,11 +25,61 @@ const itemsDichVu: MenuItemType[] = [
         key: '1',
     },
     {
-        label: 'Hoạt động',
+        label: 'Khám sản - Phụ khoa',
         key: '2',
     },
     {
-        label: 'Ngưng hoạt động',
+        label: 'Khám răng hàm mặt',
+        key: '3',
+    },
+    {
+        label: 'Khám tai mũi họng',
+        key: '4',
+    },
+    {
+        label: 'Khám tim mạch',
+        key: '5',
+    },
+    {
+        label: 'Khám hô hấp',
+        key: '6',
+    },
+    {
+        label: 'Khám tổng quát',
+        key: '7',
+    },
+];
+
+const itemsTinhTrang: MenuItemType[] = [
+    {
+        label: 'Tất cả',
+        key: '1',
+    },
+    {
+        label: 'Đang chờ',
+        key: '2',
+    },
+    {
+        label: 'Đã sử dụng',
+        key: '3',
+    },
+    {
+        label: 'Bỏ qua',
+        key: '4',
+    },
+];
+
+const itemsNguonCap: MenuItemType[] = [
+    {
+        label: 'Tất cả',
+        key: '1',
+    },
+    {
+        label: 'Kiosk',
+        key: '2',
+    },
+    {
+        label: 'Hệ thống',
         key: '3',
     },
 ];
@@ -43,21 +89,35 @@ const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('click', e);
 };
 
-const menuPropsDichVu = {
+const menuPropsHoatDong = {
     itemsDichVu,
     onClick: handleMenuClick,
 };
 
+const menuPropsKetNoi = {
+    itemsTinhTrang,
+    onClick: handleMenuClick,
+};
+
+const menuPropsNguonCap = {
+    itemsNguonCap,
+    onClick: handleMenuClick,
+};
+
+const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+};
+
 const { Content } = Layout;
 
-function ContentDichVu() {
+function ContentCapSo() {
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex' }}>
                 <div style={{ marginRight: '24px' }}>
                     <div style={{ marginBottom: '5px' }}>
                         <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
-                            Trạng thái hoạt động
+                            Tên dịch vụ
                         </span>
                     </div>
 
@@ -71,17 +131,16 @@ function ContentDichVu() {
                             <Dropdown
                                 overlay={
                                     <Menu onClick={handleMenuClick}>
-                                        {menuPropsDichVu.itemsDichVu.map((item) => (
+                                        {menuPropsHoatDong.itemsDichVu.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
                                     </Menu>
                                 }
                                 trigger={['click']}
-                                overlayStyle={{ width: '300px' }}
                             >
                                 <Button
                                     style={{
-                                        width: '300px',
+                                        width: '154px',
                                         height: '44px',
                                         display: 'flex',
                                         justifyContent: 'space-between',
@@ -103,13 +162,109 @@ function ContentDichVu() {
                     </div>
                 </div>
 
-                <div style={{ display: 'inline-block', marginRight: '148px' }}>
+                <div style={{ display: 'inline-block', marginRight: '24px' }}>
                     <div style={{ marginBottom: '5px' }}>
+                        <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
+                            Tình trạng
+                        </span>
+                    </div>
+
+                    <div>
+                        <div
+                            style={{
+                                marginRight: '20px',
+                                display: 'inline',
+                            }}
+                        >
+                            <Dropdown
+                                overlay={
+                                    <Menu onClick={handleMenuClick}>
+                                        {menuPropsKetNoi.itemsTinhTrang.map((item) => (
+                                            <Menu.Item key={item.key}>{item.label}</Menu.Item>
+                                        ))}
+                                    </Menu>
+                                }
+                                trigger={['click']}
+                            >
+                                <Button
+                                    style={{
+                                        width: '154px',
+                                        height: '44px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <CaretDownOutlined
+                                        style={{
+                                            color: '#FF7506',
+                                            height: '12px',
+                                            width: '12px',
+                                            marginRight: '10px',
+                                        }}
+                                    />
+                                </Button>
+                            </Dropdown>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ display: 'inline-block', marginRight: '24px' }}>
+                    <div style={{ marginBottom: '5px' }}>
+                        <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
+                            Nguồn cấp
+                        </span>
+                    </div>
+
+                    <div>
+                        <div
+                            style={{
+                                marginRight: '20px',
+                                display: 'inline',
+                            }}
+                        >
+                            <Dropdown
+                                overlay={
+                                    <Menu onClick={handleMenuClick}>
+                                        {menuPropsNguonCap.itemsNguonCap.map((item) => (
+                                            <Menu.Item key={item.key}>{item.label}</Menu.Item>
+                                        ))}
+                                    </Menu>
+                                }
+                                trigger={['click']}
+                            >
+                                <Button
+                                    style={{
+                                        width: '154px',
+                                        height: '44px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <CaretDownOutlined
+                                        style={{
+                                            color: '#FF7506',
+                                            height: '12px',
+                                            width: '12px',
+                                            marginRight: '10px',
+                                        }}
+                                    />
+                                </Button>
+                            </Dropdown>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ display: 'inline-block', marginRight: '24px' }}>
+                    <div style={{ marginBottom: '4px' }}>
                         <span className="title2-baocao" style={{ font: 'Nunito' }}>
                             Chọn thời gian
                         </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
+                    <div>
                         <DatePicker
                             suffixIcon={<CalendarOutlined />}
                             style={{ height: '44px', width: '150px' }}
@@ -134,7 +289,7 @@ function ContentDichVu() {
                     </div>
                 </div>
 
-                <div style={{ display: 'inline-block', marginRight: '100px' }}>
+                <div style={{ display: 'inline-block', marginRight: '80px' }}>
                     <div style={{ marginBottom: '5px' }}>
                         <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
                             Từ khóa
@@ -148,16 +303,17 @@ function ContentDichVu() {
                                 display: 'inline',
                             }}
                         >
-                            <SearchThietBi />
+                            <SearchCapSo />
                         </div>
                     </div>
                 </div>
             </div>
+
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableDichVu />
+                    <TableCapSo />
                 </div>
-                <Link to="/themthietbi">
+                <Link to="/themcapso">
                     <div
                         id="button"
                         style={{
@@ -189,8 +345,8 @@ function ContentDichVu() {
                         </div>
 
                         <span className="text-add-button" style={{ font: 'Nunito' }}>
-                            Thêm <br />
-                            dịch vụ
+                            Cấp <br />
+                            số mới
                         </span>
                     </div>
                 </Link>
@@ -199,4 +355,4 @@ function ContentDichVu() {
     );
 }
 
-export default ContentDichVu;
+export default ContentCapSo;

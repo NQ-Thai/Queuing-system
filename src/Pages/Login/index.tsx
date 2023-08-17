@@ -1,13 +1,26 @@
 import { Button, Input } from 'antd';
+
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo2 from '../../assets/images/Group 341.png';
 import logo from '../../assets/images/Logo alta.png';
 
 function Login() {
     const navigate = useNavigate();
+    const [loginError, setLoginError] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        navigate('/dashboard');
+        const correctUsername = 'quangthai';
+        const correctPassword = '123';
+
+        if (username === correctUsername && password === correctPassword) {
+            setLoginError(false);
+            navigate('/profile');
+        } else {
+            setLoginError(true);
+        }
     };
 
     return (
@@ -37,9 +50,12 @@ function Login() {
                             }}
                         >
                             <Input
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 style={{
                                     width: '400px',
                                     height: '40px',
+                                    borderColor: loginError ? 'red' : '',
                                 }}
                             />
                         </div>
@@ -67,25 +83,45 @@ function Login() {
                             }}
                         >
                             <Input.Password
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 style={{
                                     width: '400px',
                                     height: '40px',
+                                    borderColor: loginError ? 'red' : '',
                                 }}
                             />
                         </div>
                     </div>
                 </div>
                 <div style={{ marginTop: '5px' }}>
-                    <Link
-                        style={{
-                            font: 'Nunito',
-                            marginRight: '310px',
-                        }}
-                        to="/authemail"
-                        className="forgotPass-text"
-                    >
-                        Quên mật khẩu?
-                    </Link>
+                    {loginError ? (
+                        <div style={{ color: 'red', marginRight: '210px' }}>
+                            <span>Sai mật khẩu hoặc tên đăng nhập</span>
+                            <div>
+                                <Link
+                                    style={{
+                                        font: 'Nunito',
+                                    }}
+                                    to="/authemail"
+                                    className="forgotPass-text"
+                                >
+                                    Quên mật khẩu?
+                                </Link>
+                            </div>
+                        </div>
+                    ) : (
+                        <Link
+                            style={{
+                                font: 'Nunito',
+                                marginRight: '310px',
+                            }}
+                            to="/authemail"
+                            className="forgotPass-text"
+                        >
+                            Quên mật khẩu?
+                        </Link>
+                    )}
                 </div>
 
                 <div>

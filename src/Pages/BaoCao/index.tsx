@@ -1,8 +1,8 @@
-import { CalendarOutlined } from '@ant-design/icons';
-import { DatePicker, DatePickerProps, Layout } from 'antd';
+import { DatePickerProps, Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import avata from '../../assets/images/avata.jpg';
 import { iconBell } from '../../assets/svg/svg';
+import ContentBaoCao from './content';
 
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     console.log(date, dateString);
@@ -60,31 +60,7 @@ function BaoCao() {
                         </Link>
                     </div>
                 </div>
-                <div style={{ marginBottom: '4px' }}>
-                    <span className="title2-baocao" style={{ font: 'Nunito' }}>
-                        Chọn thời gian
-                    </span>
-                </div>
-                <div style={{ marginLeft: '24px' }}>
-                    <DatePicker
-                        suffixIcon={<CalendarOutlined />}
-                        style={{ height: '44px', width: '150px' }}
-                        onChange={onChange}
-                    />
-                    <span style={{ margin: '0 4px 0 4px' }}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="7"
-                            height="7"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            style={{ verticalAlign: 'middle' }}
-                        >
-                            <path d="M3 0L10 5L3 10V0Z" fill="currentColor" />
-                        </svg>
-                    </span>
-                    <DatePicker style={{ height: '44px', width: '150px' }} onChange={onChange} />
-                </div>
+                <ContentBaoCao />
             </Layout>
         </Layout>
     );
