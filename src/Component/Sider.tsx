@@ -27,11 +27,21 @@ function NavBar() {
         '/chitietthietbi',
         '/capnhatthietbi',
         '/dichvu',
+        '/themdichvu',
+        '/chitietdichvu',
+        '/capnhatdichvu',
         '/capso',
         '/themcapso',
         '/chitietcapso',
         '/baocao',
         '/caidat',
+        '/quanlyvaitro',
+        '/quanlyvaitro/themvaitro',
+        '/quanlyvaitro/capnhatvaitro',
+        '/quanlytaikhoan',
+        '/quanlytaikhoan/capnhat',
+        '/quanlytaikhoan/themtaikhoan',
+        '/nhatkynguoidung',
         '/profile',
     ].includes(location.pathname);
 
@@ -44,11 +54,19 @@ function NavBar() {
             '/chitietthietbi': '/thietbi',
             '/capnhatthietbi': '/thietbi',
             '/dichvu': '/dichvu',
+            '/themdichvu': '/dichvu',
+            '/capnhatdichvu': '/dichvu',
+            '/chitietdichvu': '/dichvu',
             '/capso': '/capso',
             '/themcapso': '/capso',
             '/chitietcapso': '/thietbi',
             '/baocao': '/baocao',
             '/caidat': '/caidat',
+            '/quanlyvaitro': '/caidat',
+            '/quanlyvaitro/themvaitro': '/caidat',
+            '/quanlyvaitro/capnhatvaitro': '/caidat',
+            '/quanlytaikhoan/capnhat': '/caidat',
+            '/quanlytaikhoan/themtaikhoan': '/caidat',
         };
 
         const currentPath = location.pathname;
@@ -77,7 +95,7 @@ function NavBar() {
                     <Menu
                         className="menu-width ant-menu-light"
                         theme="light"
-                        mode="inline"
+                        mode="vertical"
                         selectedKeys={[selectedMenuKey!]}
                     >
                         <Menu.Item style={{ height: '48px' }} key="/dashboard">
@@ -94,7 +112,7 @@ function NavBar() {
                         </Menu.Item>
                         <Menu.Item style={{ height: '48px' }} key="/dichvu">
                             {iconDichVu}
-                            <Link className="text-menu" to="/dichvu">
+                            <Link className="text-menu=" to="/dichvu">
                                 Dịch vụ
                             </Link>
                         </Menu.Item>
@@ -110,12 +128,23 @@ function NavBar() {
                                 Báo cáo
                             </Link>
                         </Menu.Item>
-                        <Menu.Item style={{ height: '48px' }} key="/caidat">
-                            <TbSettings2 className="icon-menu-sider" />
-                            <Link className="text-menu" to="/caidat">
-                                Cài đặt hệ thống
-                            </Link>
-                        </Menu.Item>
+                        <Menu.SubMenu
+                            className="text-menu"
+                            style={{ height: '48px' }}
+                            key="/caidat"
+                            title="Cài đặt hệ thống"
+                            icon={<TbSettings2 className="icon-menu-sider" />}
+                        >
+                            <Menu.Item>
+                                <Link to="/quanlyvaitro">Quản lý vai trò</Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/quanlytaikhoan">Quản lý tài khoản</Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link to="/nhatkynguoidung">Nhật ký người dùng</Link>
+                            </Menu.Item>
+                        </Menu.SubMenu>
                     </Menu>
 
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '140px' }}>

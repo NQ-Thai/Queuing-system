@@ -2,6 +2,7 @@ import { Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React from 'react';
 import { BsFillCircleFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 interface DataType {
     key: string;
@@ -66,9 +67,9 @@ const columns: ColumnsType<DataType> = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>
+                <Link to={'/chitietdichvu'}>
                     <u>Chi tiết</u>
-                </a>
+                </Link>
             </Space>
         ),
     },
@@ -77,9 +78,9 @@ const columns: ColumnsType<DataType> = [
         key: 'action',
         render: (_, record) => (
             <Space size="middle">
-                <a>
+                <Link to={'/capnhatdichvu'}>
                     <u>Cập nhật</u>
-                </a>
+                </Link>
             </Space>
         ),
     },

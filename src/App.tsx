@@ -10,14 +10,24 @@ import AddCapSo from './pages/CapSo/AddCapSo';
 import DetailCapSo from './pages/CapSo/DetailCapSo';
 import Trangchu from './pages/Dashboard';
 import DichVu from './pages/DichVu';
+import AddDichVu from './pages/DichVu/Add';
+import DetailDichVu from './pages/DichVu/Detail';
+import UpdateDichVu from './pages/DichVu/Update';
 import AuthEmail from './pages/EmailAuth.tsx';
 import Login from './pages/Login';
+import NhatKyNguoiDung from './pages/NhatKy';
 import Profile from './pages/Profile';
 import ResetPass from './pages/ResetPass';
+import TaiKhoan from './pages/TaiKhoan';
+import AddTaiKhoan from './pages/TaiKhoan/Add';
+import UpdateTaiKhoan from './pages/TaiKhoan/Update';
 import ThietBi from './pages/ThietBi';
+import ThemThietBi from './pages/ThietBi/Add';
 import ChiTiet from './pages/ThietBi/DetailThietBi';
-import ThemThietBi from './pages/ThietBi/ThemThietBi';
 import UpdateThietBi from './pages/ThietBi/Update';
+import VaiTro from './pages/VaiTro';
+import AddVaiTro from './pages/VaiTro/Add';
+import UpdateVaiTro from './pages/VaiTro/Update';
 function App() {
     return (
         <BrowserRouter>
@@ -34,11 +44,21 @@ function App() {
                     <Route path="/chitietthietbi" element={<ChiTiet />} />
                     <Route path="/capnhatthietbi" element={<UpdateThietBi />} />
                     <Route path="/dichvu" element={<DichVu />} />
+                    <Route path="/themdichvu" element={<AddDichVu />} />
+                    <Route path="/capnhatdichvu" element={<UpdateDichVu />} />
+                    <Route path="/chitietdichvu" element={<DetailDichVu />} />
                     <Route path="/capso" element={<CapSo />} />
                     <Route path="/themcapso" element={<AddCapSo />} />
                     <Route path="/chitietcapso" element={<DetailCapSo />} />
                     <Route path="/baocao" element={<BaoCao />} />
                     <Route path="/caidat" element={<CaiDat />} />
+                    <Route path="/quanlyvaitro" element={<VaiTro />} />
+                    <Route path="/quanlyvaitro/themvaitro" element={<AddVaiTro />} />
+                    <Route path="/quanlyvaitro/capnhatvaitro" element={<UpdateVaiTro />} />
+                    <Route path="/quanlytaikhoan" element={<TaiKhoan />} />
+                    <Route path="/quanlytaikhoan/themtaikhoan" element={<AddTaiKhoan />} />
+                    <Route path="/quanlytaikhoan/capnhat" element={<UpdateTaiKhoan />} />
+                    <Route path="/nhatkynguoidung" element={<NhatKyNguoiDung />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

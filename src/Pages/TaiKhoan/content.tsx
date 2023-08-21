@@ -1,39 +1,26 @@
-import {
-    Button,
-    DatePicker,
-    DatePickerProps,
-    Dropdown,
-    Layout,
-    Menu,
-    MenuProps,
-    message,
-} from 'antd';
+import { Button, Dropdown, Layout, Menu, MenuProps, message } from 'antd';
 
-import { CalendarOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { CaretDownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import SearchThietBi from '../ThietBi/Search';
-import TableDichVu from './Table';
+import SearchTaiKhoan from './Search';
+import TableThietBi from './Table';
 
 type MenuItemType = {
     label: string;
     key: string;
 };
 
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-};
-
-const itemsDichVu: MenuItemType[] = [
+const itemsVaiTro: MenuItemType[] = [
     {
-        label: 'Tất cả',
+        label: 'Kế toán',
         key: '1',
     },
     {
-        label: 'Hoạt động',
+        label: 'quản lý',
         key: '2',
     },
     {
-        label: 'Ngưng hoạt động',
+        label: 'Admin',
         key: '3',
     },
 ];
@@ -43,21 +30,21 @@ const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('click', e);
 };
 
-const menuPropsDichVu = {
-    itemsDichVu,
+const menuPropsVaiTro = {
+    itemsVaiTro,
     onClick: handleMenuClick,
 };
 
 const { Content } = Layout;
 
-function ContentDichVu() {
+function ContentTaiKhoan() {
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex' }}>
                 <div style={{ marginRight: '24px' }}>
                     <div style={{ marginBottom: '5px' }}>
                         <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
-                            Trạng thái hoạt động
+                            Tên vai trò
                         </span>
                     </div>
 
@@ -71,7 +58,7 @@ function ContentDichVu() {
                             <Dropdown
                                 overlay={
                                     <Menu onClick={handleMenuClick}>
-                                        {menuPropsDichVu.itemsDichVu.map((item) => (
+                                        {menuPropsVaiTro.itemsVaiTro.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
                                     </Menu>
@@ -103,38 +90,7 @@ function ContentDichVu() {
                     </div>
                 </div>
 
-                <div style={{ display: 'inline-block', marginRight: '148px' }}>
-                    <div style={{ marginBottom: '5px' }}>
-                        <span className="title2-baocao" style={{ font: 'Nunito' }}>
-                            Chọn thời gian
-                        </span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
-                        <DatePicker
-                            suffixIcon={<CalendarOutlined />}
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
-                        <span style={{ margin: '0 4px 0 4px' }}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="7"
-                                height="7"
-                                viewBox="0 0 10 10"
-                                fill="none"
-                                style={{ verticalAlign: 'middle' }}
-                            >
-                                <path d="M3 0L10 5L3 10V0Z" fill="currentColor" />
-                            </svg>
-                        </span>
-                        <DatePicker
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
-                    </div>
-                </div>
-
-                <div style={{ display: 'inline-block', marginRight: '100px' }}>
+                <div style={{ display: 'inline-block', marginLeft: '487px' }}>
                     <div style={{ marginBottom: '5px' }}>
                         <span className="title-select-thietbi" style={{ font: 'Nunito' }}>
                             Từ khóa
@@ -148,22 +104,22 @@ function ContentDichVu() {
                                 display: 'inline',
                             }}
                         >
-                            <SearchThietBi />
+                            <SearchTaiKhoan />
                         </div>
                     </div>
                 </div>
             </div>
+
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableDichVu />
+                <div style={{ display: 'inline-block', marginRight: '30px' }}>
+                    <TableThietBi />
                 </div>
-                <Link to="/themdichvu">
+                <Link to="/quanlytaikhoan/themtaikhoan">
                     <div
-                        id="button"
                         style={{
                             backgroundColor: '#FFF2E7',
                             height: '94px',
-                            width: '80px',
+                            width: '81px',
                             textAlign: 'center',
                             padding: '10px',
                             borderRadius: '8px 0px 0px 8px',
@@ -189,8 +145,9 @@ function ContentDichVu() {
                         </div>
 
                         <span className="text-add-button" style={{ font: 'Nunito' }}>
-                            Thêm <br />
-                            dịch vụ
+                            Thêm
+                            <br />
+                            tài khoản
                         </span>
                     </div>
                 </Link>
@@ -199,4 +156,4 @@ function ContentDichVu() {
     );
 }
 
-export default ContentDichVu;
+export default ContentTaiKhoan;

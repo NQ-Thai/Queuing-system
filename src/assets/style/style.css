@@ -138,6 +138,16 @@
     color: #535261;
 }
 
+.number-dashboard {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 45px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+    margin: 20px 0 0 12px;
+}
+
 .title-chart {
     font-size: 20px;
     font-weight: bold;
@@ -154,6 +164,16 @@
     letter-spacing: 0em;
     text-align: left;
     margin: 0 8px 0 0;
+}
+
+.date-chart {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #a9a9b0;
+    margin: 0 0 0 20px;
 }
 
 /* Sider */
@@ -235,6 +255,24 @@
     margin: 0 0 16px 24px;
 }
 
+.number-percent {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+}
+
+.text-percent {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+}
+
 .icon-wrapper {
     display: inline-block;
     width: 32px;
@@ -244,8 +282,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 24px 0 815px;
+    margin: 0 24px 0 86.5px;
     padding: 6px;
+}
+
+.test {
+    color: rgb(251, 247, 247);
 }
 
 .icon-wrapper-information {
@@ -476,6 +518,64 @@
     padding: 6px;
 }
 
+.icon-wrapper-dichvu-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 477px;
+    padding: 6px;
+}
+
+.icon-wrapper-dichvu-update {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 414.5px;
+    padding: 6px;
+}
+
+.icon-wrapper-dichvu-detail {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 536px;
+    padding: 6px;
+}
+
+.text-add-dichvu {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+}
+
+.text-detail-dichvu {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin: 0 0 10px 0;
+}
+
 /* Dropdown */
 
 :where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
@@ -687,6 +787,120 @@
     display: none;
 }
 
+/* Quản lí vai trò */
+
+.icon-wrapper-vaitro-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 431px;
+    padding: 6px;
+}
+
+.text-add-vaitro {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ff7506;
+    margin: 10px 0 0 24px;
+}
+
+.text-checkbox {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+    margin: 0 0 12px 15px;
+}
+
+.text-checkbox-detail {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #535261;
+    margin: 0 0 12px 0;
+}
+
+.icon-wrapper-vaitro-update {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 399.5px;
+    padding: 6px;
+}
+
+/* Nhật ký người dùng */
+
+.icon-wrapper-nhatky {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 545px;
+    padding: 6px;
+}
+
+/* Quản lí tài khoản */
+
+.icon-wrapper-quanlitaikhoan {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 562px;
+    padding: 6px;
+}
+
+.icon-wrapper-taikhoan-add {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 377px;
+    padding: 6px;
+}
+
+.icon-wrapper-taikhoan-update {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: #fff2e7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px 0 345px;
+    padding: 6px;
+}
+
 /* Table */
 
 .custom-table .ant-table-thead > tr > th {
@@ -760,4 +974,28 @@
 .expanded-content.show {
     display: block;
     opacity: 1;
+}
+
+/* custom.css */
+
+.ant-menu-light .ant-menu-title:hover {
+    background-color: orange; /* Màu nền khi hover vào SubMenu */
+}
+
+.custom-submenu:hover {
+    background-color: orange; /* Màu nền khi hover vào SubMenu */
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light:not(.ant-menu-horizontal)
+    .ant-menu-item:not(.ant-menu-item-selected):hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light
+    > .ant-menu:not(.ant-menu-horizontal)
+    .ant-menu-item:not(.ant-menu-item-selected):hover {
+    background-color: #fff2e7;
+}
+
+/* custom.css */
+
+.submenu-open {
+    display: block !important; /* Hiển thị SubMenu khi nó được mở */
 }
