@@ -7,6 +7,7 @@ import { TbSettings2 } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/Logo alta.png';
 import { iconBaoCao, iconDashboard, iconDichVu } from '../assets/svg/svg';
+import { auth } from '../lib/Firebase';
 
 const { Sider } = Layout;
 
@@ -16,8 +17,13 @@ function NavBar() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        navigate('/');
+    const handleLogout = async () => {
+        try {
+            await auth.signOut();
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const shouldShowNavBar = [

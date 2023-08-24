@@ -60,10 +60,6 @@ function AddCapSoContent() {
         navigate('/capso');
     };
 
-    const handleContinue = () => {
-        navigate('/thietbi');
-    };
-
     const openModal = () => {
         setModalVisible(true);
     };

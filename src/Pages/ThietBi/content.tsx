@@ -1,63 +1,74 @@
-import { Button, Dropdown, Layout, Menu, MenuProps, message } from 'antd';
+import { Button, Dropdown, Layout, Menu, MenuProps } from 'antd';
 
 import { CaretDownOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchThietBi from './Search';
 import TableThietBi from './Table';
+
+const { Content } = Layout;
 
 type MenuItemType = {
     label: string;
     key: string;
 };
 
-const itemsHoatDong: MenuItemType[] = [
-    {
-        label: 'Tất cả',
-        key: '1',
-    },
-    {
-        label: 'Hoạt động',
-        key: '2',
-    },
-    {
-        label: 'Ngưng hoạt động',
-        key: '3',
-    },
-];
-
-const itemsKetNoi: MenuItemType[] = [
-    {
-        label: 'Tất cả',
-        key: '1',
-    },
-    {
-        label: 'Kết nối',
-        key: '2',
-    },
-    {
-        label: 'Mất kết nối',
-        key: '3',
-    },
-];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsHoatDong,
-    onClick: handleMenuClick,
-};
-
-const menuPropsKetNoi = {
-    itemsKetNoi,
-    onClick: handleMenuClick,
-};
-
-const { Content } = Layout;
-
 function ContentThietBi() {
+    const itemsHoatDong: MenuItemType[] = [
+        {
+            label: 'Tất cả',
+            key: 'Tất cả',
+        },
+        {
+            label: 'Hoạt động',
+            key: 'Hoạt động',
+        },
+        {
+            label: 'Ngưng hoạt động',
+            key: 'Ngưng hoạt động',
+        },
+    ];
+
+    const itemsKetNoi: MenuItemType[] = [
+        {
+            label: 'Tất cả',
+            key: 'Tất cả',
+        },
+        {
+            label: 'Kết nối',
+            key: 'Kết nối',
+        },
+        {
+            label: 'Mất kết nối',
+            key: 'Mất kết nối',
+        },
+    ];
+    const [selectedTrangThaiKetNoi, setSelectedTrangThaiKetNoi] = useState<string | null>(null);
+    const [selectedTrangThaiHoatDong, setSelectedTrangThaiHoatDong] = useState<string | null>(null);
+    const [searchValue, setSearchValue] = useState<string>('');
+
+    const handleKetNoi: MenuProps['onClick'] = (e) => {
+        setSelectedTrangThaiKetNoi(e.key);
+    };
+
+    const handleHoatDong: MenuProps['onClick'] = (e) => {
+        setSelectedTrangThaiHoatDong(e.key);
+    };
+
+    const handleSearch = (value: string) => {
+        setSearchValue(value);
+    };
+
+    const menuPropsHoatDong = {
+        itemsHoatDong,
+        onClick: handleHoatDong,
+    };
+
+    const menuPropsKetNoi = {
+        itemsKetNoi,
+        onClick: handleKetNoi,
+    };
+
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex' }}>
@@ -77,7 +88,7 @@ function ContentThietBi() {
                         >
                             <Dropdown
                                 overlay={
-                                    <Menu onClick={handleMenuClick}>
+                                    <Menu onClick={handleHoatDong}>
                                         {menuPropsHoatDong.itemsHoatDong.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
@@ -95,7 +106,11 @@ function ContentThietBi() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        {selectedTrangThaiHoatDong
+                                            ? itemsHoatDong.find((item) => item.key === selectedTrangThaiHoatDong)?.label
+                                            : 'Tất cả'}
+                                    </span>
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
@@ -126,7 +141,7 @@ function ContentThietBi() {
                         >
                             <Dropdown
                                 overlay={
-                                    <Menu onClick={handleMenuClick}>
+                                    <Menu onClick={handleKetNoi}>
                                         {menuPropsKetNoi.itemsKetNoi.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
@@ -144,7 +159,9 @@ function ContentThietBi() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        {selectedTrangThaiKetNoi ? itemsKetNoi.find((item) => item.key === selectedTrangThaiKetNoi)?.label : 'Tất cả'}
+                                    </span>
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
@@ -181,7 +198,11 @@ function ContentThietBi() {
 
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableThietBi />
+                    <TableThietBi
+                        selectedTrangThaiKetNoi={selectedTrangThaiKetNoi}
+                        selectedTrangThaiHoatDong={selectedTrangThaiHoatDong}
+                        searchValue={searchValue}
+                    />
                 </div>
                 <Link to="/themthietbi">
                     <div
@@ -209,9 +230,7 @@ function ContentThietBi() {
                                 margin: '0 0 10px 15px',
                             }}
                         >
-                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>
-                                +
-                            </span>
+                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>+</span>
                         </div>
 
                         <span className="text-add-button" style={{ font: 'Nunito' }}>

@@ -1,9 +1,12 @@
 import { Button, Input } from 'antd';
 
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo2 from '../../assets/images/Group 341.png';
 import logo from '../../assets/images/Logo alta.png';
+import { iconErrorLogin } from '../../assets/svg/svg';
+import { auth } from '../../lib/Firebase';
 
 function Login() {
     const navigate = useNavigate();
@@ -11,17 +14,16 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        const correctUsername = 'quangthai';
-        const correctPassword = '123';
-
-        if (username === correctUsername && password === correctPassword) {
+    async function handleLogin() {
+        try {
+            await signInWithEmailAndPassword(auth, username, password);
             setLoginError(false);
-            navigate('/profile');
-        } else {
+            navigate('/dashboard');
+        } catch (error) {
+            console.error(error);
             setLoginError(true);
         }
-    };
+    }
 
     return (
         <div className="container">
@@ -96,25 +98,23 @@ function Login() {
                 </div>
                 <div style={{ marginTop: '5px' }}>
                     {loginError ? (
-                        <div style={{ color: 'red', marginRight: '210px' }}>
-                            <span>Sai mật khẩu hoặc tên đăng nhập</span>
-                            <div>
-                                <Link
-                                    style={{
-                                        font: 'Nunito',
-                                    }}
-                                    to="/authemail"
-                                    className="forgotPass-text"
-                                >
-                                    Quên mật khẩu?
-                                </Link>
-                            </div>
+                        <div
+                            style={{
+                                color: 'red',
+                                marginRight: '185px',
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {iconErrorLogin}
+                            <span style={{ marginLeft: '5px' }}>Sai mật khẩu hoặc tên đăng nhập</span>
                         </div>
                     ) : (
                         <Link
                             style={{
                                 font: 'Nunito',
                                 marginRight: '310px',
+                                color: 'red',
                             }}
                             to="/authemail"
                             className="forgotPass-text"
@@ -144,6 +144,26 @@ function Login() {
                             Đăng nhập
                         </span>
                     </Button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '5px' }}>
+                    {loginError ? (
+                        <div style={{ color: 'red' }}>
+                            <div>
+                                <Link
+                                    style={{
+                                        font: 'Nunito',
+                                        color: 'red',
+                                    }}
+                                    to="/authemail"
+                                    className="forgotPass-text"
+                                >
+                                    Quên mật khẩu?
+                                </Link>
+                            </div>
+                        </div>
+                    ) : (
+                        <span></span>
+                    )}
                 </div>
             </div>
             <div className="right">

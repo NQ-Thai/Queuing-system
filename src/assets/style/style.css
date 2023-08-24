@@ -10,7 +10,7 @@
     background-color: #ececec;
 
     height: 100%;
-    width: 35%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@
     flex: 1;
     background-color: #fff;
     height: 100%;
-    width: 65%;
+    width: 60%;
 }
 
 .img-logo {
@@ -96,9 +96,10 @@
 
 /* Sider */
 
-.custom-menu .ant-menu-item:hover {
-    background-color: yellow; /* Màu nền màu vàng khi hover */
-    /* Các thuộc tính màu khác (nếu cần) */
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light > .ant-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    color: white;
+    background-color: #ff7506;
 }
 
 /*---Auth Email---*/
@@ -282,7 +283,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 24px 0 86.5px;
+    margin: 0 24px 0 79px;
     padding: 6px;
 }
 
@@ -578,30 +579,14 @@
 
 /* Dropdown */
 
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item:hover,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item:hover,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title:hover,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title:hover,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item-active,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-item-active,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title-active,
-:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu
-    .ant-dropdown-menu
-    .ant-dropdown-menu-submenu-title-active {
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title:hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title-active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title-active {
     background-color: #fff2e7;
 }
 
@@ -715,8 +700,7 @@
     background-color: #ffffff;
     border: 0;
     border-radius: 20px;
-    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12),
-        0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
     pointer-events: auto;
     padding: 0;
 }
@@ -936,15 +920,11 @@
 :where(.css-dev-only-do-not-override-19gw05y).ant-table-wrapper
     .ant-table-thead
     > tr
-    > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
-        [colspan]
-    )::before,
+    > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before,
 :where(.css-dev-only-do-not-override-19gw05y).ant-table-wrapper
     .ant-table-thead
     > tr
-    > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
-        [colspan]
-    )::before {
+    > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
     position: fixed;
     width: 1px;
     height: 1.6em;
@@ -986,11 +966,8 @@
     background-color: orange; /* Màu nền khi hover vào SubMenu */
 }
 
-:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light:not(.ant-menu-horizontal)
-    .ant-menu-item:not(.ant-menu-item-selected):hover,
-:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light
-    > .ant-menu:not(.ant-menu-horizontal)
-    .ant-menu-item:not(.ant-menu-item-selected):hover {
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light > .ant-menu:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover {
     background-color: #fff2e7;
 }
 

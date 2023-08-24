@@ -1,41 +1,7 @@
-import { DatePickerProps, Layout, MenuProps, message } from 'antd';
+import { Layout } from 'antd';
 
 import { Link } from 'react-router-dom';
 import TableDichVu from './Table';
-
-type MenuItemType = {
-    label: string;
-    key: string;
-};
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-};
-
-const itemsDichVu: MenuItemType[] = [
-    {
-        label: 'Tất cả',
-        key: '1',
-    },
-    {
-        label: 'Hoạt động',
-        key: '2',
-    },
-    {
-        label: 'Ngưng hoạt động',
-        key: '3',
-    },
-];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsDichVu = {
-    itemsDichVu,
-    onClick: handleMenuClick,
-};
 
 const { Content } = Layout;
 

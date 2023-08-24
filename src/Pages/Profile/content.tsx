@@ -1,9 +1,21 @@
 import { Input, Layout } from 'antd';
-import changeAvata from '../../assets/images/avata.jpg';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../../lib/User/UserReducer';
+import { AppDispatch, RootState } from '../../lib/store';
 
 const { Content } = Layout;
 
 function UserInFormation() {
+    const dispatch: AppDispatch = useDispatch();
+
+    const users = useSelector((state: RootState) => state.User.user);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const userInfo = users.length > 0 ? users[0] : null;
     return (
         <Content
             style={{
@@ -44,11 +56,7 @@ function UserInFormation() {
                                     overflow: 'hidden',
                                 }}
                             >
-                                <img
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                    src={changeAvata}
-                                    alt=""
-                                />
+                                <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={userInfo?.Avata || ''} alt="" />
                             </div>
                             <div
                                 style={{
@@ -57,7 +65,7 @@ function UserInFormation() {
                                     marginTop: '10px',
                                 }}
                             >
-                                <span className="text-menu-under">Da Trắng Tóc xù</span>
+                                <span className="text-menu-under">{userInfo?.TenNguoiDung || ''}</span>
                             </div>
                         </div>
                     </div>
@@ -90,7 +98,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
-                                        placeholder="Lê Quỳnh Ái Vân"
+                                        placeholder={userInfo?.TenNguoiDung || ''}
                                         style={{
                                             width: '384px',
                                             height: '44px',
@@ -146,7 +154,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
-                                        placeholder="adminSSO1@domain.com"
+                                        placeholder={userInfo?.Email || ''}
                                         style={{
                                             width: '384px',
                                             height: '44px',
@@ -176,7 +184,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
-                                        placeholder="lequynhaivan01"
+                                        placeholder={userInfo?.TenDangNhap || ''}
                                         style={{
                                             width: '384px',
                                             height: '44px',
@@ -204,7 +212,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
-                                        placeholder="311940211"
+                                        placeholder={userInfo?.MatKhau || ''}
                                         style={{
                                             width: '384px',
                                             height: '44px',
@@ -232,7 +240,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
-                                        placeholder="Kế toán"
+                                        placeholder={userInfo?.VaiTro || ''}
                                         style={{
                                             width: '384px',
                                             height: '44px',

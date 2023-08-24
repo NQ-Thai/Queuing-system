@@ -1,45 +1,35 @@
-import { Layout, MenuProps, message } from 'antd';
+import { Layout } from 'antd';
+import { useEffect } from 'react';
 import { HiPencil } from 'react-icons/hi';
-import { Link, useNavigate } from 'react-router-dom';
-
-type MenuItemType = {
-    label: string;
-    key: string;
-};
-
-const itemsHoatDong: MenuItemType[] = [
-    {
-        label: 'Kiosk',
-        key: '1',
-    },
-    {
-        label: 'Display counter',
-        key: '2',
-    },
-];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsHoatDong,
-    onClick: handleMenuClick,
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchData } from '../../lib/User/UserReducer';
+import { AppDispatch, RootState } from '../../lib/store';
 
 const { Content } = Layout;
 
 function ChiTietContent() {
-    const navigate = useNavigate();
+    // const { id } = useParams();
+    // const [thietbi, setThietbi] = useState<ThietBi | undefined>();
+    // const dispatch = useDispatch();
+    // const selectedThietBi = useSelector((state: RootState) => state.Thietbi.thietbi);
 
-    const handleCancel = () => {
-        navigate('/thietbi');
-    };
+    // useEffect(() => {
+    //     const data = selectedThietBi.find((item) => item.key === id);
+    //     setThietbi(data);
+    //     dispatch(fetchData() as any);
+    // }, [selectedThietBi, dispatch, id]);
 
-    const handleContinue = () => {
-        navigate('/thietbi');
-    };
+    const dispatch: AppDispatch = useDispatch();
+
+    const users = useSelector((state: RootState) => state.User.user);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const userInfo = users.length > 0 ? users[0] : null;
+
     return (
         <Content
             style={{
@@ -82,10 +72,7 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Mã thiết bị:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '43px', font: 'Nunito' }}
-                                        >
+                                        <span className="text-detail" style={{ marginLeft: '43px', font: 'Nunito' }}>
                                             KIO_01
                                         </span>
                                     </span>
@@ -99,10 +86,7 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Tên thiết bị:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '39px' }}
-                                        >
+                                        <span className="text-detail" style={{ marginLeft: '39px' }}>
                                             Kiosk
                                         </span>
                                     </span>
@@ -116,11 +100,8 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Địa chỉ IP:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '51px' }}
-                                        >
-                                            128.172.308
+                                        <span className="text-detail" style={{ marginLeft: '51px' }}>
+                                            192.168.1.10
                                         </span>
                                     </span>
                                 </div>
@@ -135,10 +116,7 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Loại thiết bị:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '69px' }}
-                                        >
+                                        <span className="text-detail" style={{ marginLeft: '69px' }}>
                                             Kiosk
                                         </span>
                                     </span>
@@ -152,11 +130,8 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Tên đăng nhập:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '46px' }}
-                                        >
-                                            Linhkyo011
+                                        <span className="text-detail" style={{ marginLeft: '46px' }}>
+                                            {userInfo?.TenDangNhap || ''}
                                         </span>
                                     </span>
                                 </div>
@@ -169,11 +144,8 @@ function ChiTietContent() {
                                         className="text-change-input"
                                     >
                                         Mật khẩu:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '87px' }}
-                                        >
-                                            CMS
+                                        <span className="text-detail" style={{ marginLeft: '87px' }}>
+                                            {userInfo?.MatKhau || ''}
                                         </span>
                                     </span>
                                 </div>
@@ -198,8 +170,7 @@ function ChiTietContent() {
                             }}
                         >
                             <span className="text-detail">
-                                Khám tim mạch, Khám sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi
-                                họng, Khám hô hấp, Khám tổng quát.
+                                Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát
                             </span>
                         </div>
                     </div>
@@ -231,8 +202,6 @@ function ChiTietContent() {
                                 margin: '0 0 10px 15px',
                             }}
                         >
-                            {/* <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>+</span> */}
-                            {/* {iconUpdateThietBi} */}
                             <HiPencil
                                 style={{
                                     color: 'white',

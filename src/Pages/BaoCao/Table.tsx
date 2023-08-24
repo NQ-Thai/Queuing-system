@@ -66,7 +66,7 @@
 // export default TableBaoCao;
 
 import { Table } from 'antd';
-import type { ColumnsType, TableProps } from 'antd/es/table';
+import type { ColumnsType } from 'antd/es/table';
 import React from 'react';
 import { BsFillCircleFill } from 'react-icons/bs';
 
@@ -179,10 +179,6 @@ const data: DataType[] = [
         nguonCap: 'Kiosk',
     },
 ];
-
-const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-};
 
 const TableBaoCao: React.FC = () => (
     <Table

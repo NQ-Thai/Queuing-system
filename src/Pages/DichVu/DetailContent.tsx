@@ -272,7 +272,6 @@ function DetailContentDichVu() {
                                             </Menu>
                                         }
                                         trigger={['click']}
-                                        overlayStyle={{ width: '300px' }}
                                     >
                                         <Button
                                             style={{

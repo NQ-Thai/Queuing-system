@@ -3,75 +3,102 @@ import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { BsFillCircleFill } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-interface DataType {
-    key: string;
-    thietBi: string;
-    tenThietBi: string;
-    diaChiIP: string;
-    trangThaiHoatdong: string;
-    trangThaiKetNoi: string;
-    dichVuSuDung: string;
-}
+import { fetchData } from '../../lib/ThietBi/ThietBiReducer';
 
-const renderketNoi = (trangThaiKetNoi: string) => {
-    if (trangThaiKetNoi === 'Kết nối') {
-        return (
-            <span
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-                <BsFillCircleFill style={{ color: '#34CD26', marginRight: '5px' }} />
-                {trangThaiKetNoi}
-            </span>
-        );
-    } else if (trangThaiKetNoi === 'Mất kết nối') {
-        return (
-            <span
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-                <BsFillCircleFill style={{ color: '#EC3740', marginRight: '5px' }} />
-                {trangThaiKetNoi}
-            </span>
-        );
-    }
-};
+import { AppDispatch, RootState } from '../../lib/store';
+import { setSelectedThietBiDetail, ThietBi } from '../../lib/ThietBi/ThietBiSlice';
 
-const renderHoatDong = (trangThaiHoatdong: string) => {
-    if (trangThaiHoatdong === 'Hoạt động') {
-        return (
-            <span
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-                <BsFillCircleFill style={{ color: '#34CD26', marginRight: '5px' }} />
-                {trangThaiHoatdong}
-            </span>
-        );
-    } else if (trangThaiHoatdong === 'Ngưng hoạt động') {
-        return (
-            <span
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-                <BsFillCircleFill style={{ color: '#EC3740', marginRight: '5px' }} />
-                {trangThaiHoatdong}
-            </span>
-        );
-    }
-};
+const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedTrangThaiHoatDong: string | null; searchValue: string }> = ({
+    selectedTrangThaiKetNoi,
+    selectedTrangThaiHoatDong,
+    searchValue,
+}) => {
+    const renderHoatDong = (trangThaiHoatdong: string) => {
+        if (trangThaiHoatdong === 'Hoạt động') {
+            return (
+                <span
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <BsFillCircleFill style={{ color: '#34CD26', marginRight: '5px' }} />
+                    {trangThaiHoatdong}
+                </span>
+            );
+        } else if (trangThaiHoatdong === 'Ngưng hoạt động') {
+            return (
+                <span
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <BsFillCircleFill style={{ color: '#EC3740', marginRight: '5px' }} />
+                    {trangThaiHoatdong}
+                </span>
+            );
+        }
+    };
 
-const TableThietBi: React.FC = () => {
+    const renderketNoi = (trangThaiKetNoi: string) => {
+        if (trangThaiKetNoi === 'Kết nối') {
+            return (
+                <span
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <BsFillCircleFill style={{ color: '#34CD26', marginRight: '5px' }} />
+                    {trangThaiKetNoi}
+                </span>
+            );
+        } else if (trangThaiKetNoi === 'Mất kết nối') {
+            return (
+                <span
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <BsFillCircleFill style={{ color: '#EC3740', marginRight: '5px' }} />
+                    {trangThaiKetNoi}
+                </span>
+            );
+        }
+    };
+
+    const dispatch: AppDispatch = useDispatch();
+
+    const thietbis = useSelector((state: RootState) => state.Thietbi.thietbi);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const handleDetailClick = (record: ThietBi) => {
+        dispatch(setSelectedThietBiDetail(record));
+    };
+    // Tạo hàm kiểm tra trạng thái kết nối
+    const checkTrangThaiKetNoi = (trangThaiKetNoi: string, selectedTrangThaiKetNoi: string | null) => {
+        return selectedTrangThaiKetNoi === null || selectedTrangThaiKetNoi === 'Tất cả' || trangThaiKetNoi === selectedTrangThaiKetNoi;
+    };
+
+    const checkTrangThaiHoatDong = (trangThaiHoatDong: string, selectedTrangThaiHoatDong: string | null) => {
+        return selectedTrangThaiHoatDong === null || selectedTrangThaiHoatDong === 'Tất cả' || trangThaiHoatDong === selectedTrangThaiHoatDong;
+    };
+
+    const filteredThietBis = thietbis.filter(
+        (thietbi) =>
+            checkTrangThaiKetNoi(thietbi.TrangThaiKetNoi, selectedTrangThaiKetNoi) &&
+            checkTrangThaiHoatDong(thietbi.TrangThaiHoatDong, selectedTrangThaiHoatDong) &&
+            (searchValue === '' || thietbi.MaThietBi.includes(searchValue)),
+    );
+
     const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
     const toggleRowExpansion = (rowKey: string) => {
@@ -105,53 +132,47 @@ const TableThietBi: React.FC = () => {
         };
     }, []);
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<ThietBi> = [
         {
             title: 'Mã thiết bị',
-            dataIndex: 'thietBi',
-            key: 'thietBi',
+            dataIndex: 'MaThietBi',
+            key: 'MaThietBi',
         },
         {
             title: 'Tên thiết bị',
-            dataIndex: 'tenThietBi',
-            key: 'tenThietBi',
+            dataIndex: 'TenThietBi',
+            key: 'TenThietBi',
         },
         {
             title: 'Địa chỉ IP',
-            dataIndex: 'diaChiIP',
-            key: 'diaChiIP',
+            dataIndex: 'DiaChiIP',
+            key: 'DiaChiIP',
         },
         {
             title: 'Trạng thái hoạt động',
-            key: 'trangThaiHoatdong',
-            dataIndex: 'trangThaiHoatdong',
+            key: 'TrangThaiHoatDong',
+            dataIndex: 'TrangThaiHoatDong',
             render: renderHoatDong,
         },
         {
             title: 'Trạng thái Kết nối',
-            key: 'trangThaiKetNoi',
-            dataIndex: 'trangThaiKetNoi',
+            key: 'TrangThaiKetNoi',
+            dataIndex: 'TrangThaiKetNoi',
             render: renderketNoi,
         },
         {
             title: 'Dịch vụ sử dụng',
-            dataIndex: 'dichVuSuDung',
-            key: 'dichVuSuDung',
+            dataIndex: 'DichVu',
+            key: 'DichVu',
             width: '230px',
-            render: (dichVuSuDung, record) => (
+            render: (DichVu, record) => (
                 <div className="service-column">
                     <div className="popover-wrapper">
-                        {expandedRows.includes(record.key) && (
-                            <div className="expanded-content show">{dichVuSuDung}</div>
-                        )}
+                        {expandedRows.includes(record.key) && <div className="expanded-content show">{DichVu}</div>}
                         {!expandedRows.includes(record.key) && (
                             <div>
-                                <div className="shortened-content">
-                                    {dichVuSuDung.length > 23
-                                        ? `${dichVuSuDung.slice(0, 23)}...`
-                                        : dichVuSuDung}
-                                </div>
-                                {dichVuSuDung.length > 23 && (
+                                <div className="shortened-content">{DichVu.length > 23 ? `${DichVu.slice(0, 23)}...` : DichVu}</div>
+                                {DichVu.length > 23 && (
                                     <a onClick={() => toggleRowExpansion(record.key)}>
                                         <u>Xem thêm</u>
                                     </a>
@@ -168,7 +189,7 @@ const TableThietBi: React.FC = () => {
             key: 'detailAction',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link to={'/chitietthietbi'}>
+                    <Link to={`/chitietthietbi`}>
                         <u>Chi tiết</u>
                     </Link>
                 </Space>
@@ -187,57 +208,9 @@ const TableThietBi: React.FC = () => {
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            thietBi: 'KIO_1',
-            tenThietBi: 'Kiosk',
-            diaChiIP: '192.168.1.10',
-            trangThaiHoatdong: 'Hoạt động',
-            trangThaiKetNoi: 'Kết nối',
-            dichVuSuDung:
-                'Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát',
-        },
-        {
-            key: '2',
-            thietBi: 'KIO_2',
-            tenThietBi: 'Kiosk',
-            diaChiIP: '192.168.1.10',
-            trangThaiHoatdong: 'Ngưng hoạt động',
-            trangThaiKetNoi: 'Kết nối',
-            dichVuSuDung:
-                'Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát',
-        },
-        {
-            key: '3',
-            thietBi: 'KIO_3',
-            tenThietBi: 'Kiosk',
-            diaChiIP: '192.168.1.10',
-            trangThaiHoatdong: 'Hoạt động',
-            trangThaiKetNoi: 'Mất kết nối',
-            dichVuSuDung:
-                'Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát',
-        },
-        {
-            key: '4',
-            thietBi: 'KIO_4',
-            tenThietBi: 'Kiosk',
-            diaChiIP: '192.168.1.10',
-            trangThaiHoatdong: 'Hoạt động',
-            trangThaiKetNoi: 'Kết nối',
-            dichVuSuDung:
-                'Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát',
-        },
-    ];
-
     return (
         <div className="table-wrapper" ref={tableWrapperRef}>
-            <Table
-                className="custom-table"
-                columns={columns}
-                dataSource={data}
-                style={{ width: '1112px' }}
-            />
+            <Table className="custom-table" columns={columns} dataSource={filteredThietBis} style={{ width: '1112px' }} />
         </div>
     );
 };

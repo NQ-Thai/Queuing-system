@@ -1,7 +1,8 @@
 import { Layout } from 'antd';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './assets/style/style.css';
+import { requireAuth } from './component/AuthRouter';
 import NavBar from './component/Sider';
 import BaoCao from './pages/BaoCao';
 import CaiDat from './pages/CaiDat';
@@ -58,7 +59,7 @@ function App() {
                     <Route path="/quanlytaikhoan" element={<TaiKhoan />} />
                     <Route path="/quanlytaikhoan/themtaikhoan" element={<AddTaiKhoan />} />
                     <Route path="/quanlytaikhoan/capnhat" element={<UpdateTaiKhoan />} />
-                    <Route path="/nhatkynguoidung" element={<NhatKyNguoiDung />} />
+                    <Route path="/nhatkynguoidung" element={requireAuth() ? <NhatKyNguoiDung /> : <Navigate to="/" replace />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

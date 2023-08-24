@@ -1,28 +1,29 @@
 import { Layout } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import avata from '../../assets/images/avata.jpg';
-import {
-    iconBell,
-    iconNextPercent1,
-    iconNextPercent2,
-    iconNextPercent3,
-    iconPercent1,
-    iconPercent2,
-    iconPercent3,
-} from '../../assets/svg/svg';
+import { iconBell, iconNextPercent1, iconNextPercent2, iconNextPercent3, iconPercent1, iconPercent2, iconPercent3 } from '../../assets/svg/svg';
+import { fetchData } from '../../lib/ThietBi/ThietBiReducer';
+import { AppDispatch, RootState } from '../../lib/store';
 import ContentDashBoard from './content';
 
 function Trangchu() {
+    const dispatch: AppDispatch = useDispatch();
+
+    const users = useSelector((state: RootState) => state.User.user);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const userInfo = users.length > 0 ? users[0] : null;
     return (
         <Layout>
             <Layout>
                 <div style={{ display: 'flex', height: '98vh' }}>
                     <div style={{ width: '830px', display: 'inline-block' }}>
                         <div style={{ width: '600px', height: '88px', marginBottom: '5px' }}>
-                            <div
-                                id="header"
-                                style={{ font: 'Nunito', display: 'flex', alignItems: 'center' }}
-                            >
+                            <div id="header" style={{ font: 'Nunito', display: 'flex', alignItems: 'center' }}>
                                 <span className="text-header-content">Dashboard</span>
                             </div>
                         </div>
@@ -56,16 +57,10 @@ function Trangchu() {
                                     <span className="text-header-content" style={{ color: '#fff' }}>
                                         h
                                     </span>
-                                    <div
-                                        className="icon-wrapper"
-                                        style={{ display: 'inline-block', verticalAlign: 'middle' }}
-                                    >
+                                    <div className="icon-wrapper" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                                         {iconBell}
                                     </div>
-                                    <Link
-                                        to="/profile"
-                                        style={{ display: 'flex', alignItems: 'center' }}
-                                    >
+                                    <Link to="/profile" style={{ display: 'flex', alignItems: 'center' }}>
                                         <div
                                             style={{
                                                 width: '40px',
@@ -76,7 +71,7 @@ function Trangchu() {
                                             }}
                                         >
                                             <img
-                                                src={avata}
+                                                src={userInfo?.Avata || ''}
                                                 alt=""
                                                 style={{
                                                     width: '100%',
@@ -92,17 +87,11 @@ function Trangchu() {
                                                 textAlign: 'left',
                                             }}
                                         >
-                                            <span
-                                                className="text-hello"
-                                                style={{ font: 'Nunito', display: 'block' }}
-                                            >
+                                            <span className="text-hello" style={{ font: 'Nunito', display: 'block' }}>
                                                 Xin chào
                                             </span>
-                                            <span
-                                                className="text-name-right"
-                                                style={{ font: 'Nunito', display: 'block' }}
-                                            >
-                                                Da Trắng Tóc Xù
+                                            <span className="text-name-right" style={{ font: 'Nunito', display: 'block' }}>
+                                                {userInfo?.TenNguoiDung || ''}
                                             </span>
                                         </div>
                                     </Link>
@@ -125,10 +114,7 @@ function Trangchu() {
                                     borderRadius: '12px',
                                 }}
                             >
-                                <span
-                                    className="text-header-content"
-                                    style={{ color: 'rgb(251, 247, 247)' }}
-                                >
+                                <span className="text-header-content" style={{ color: 'rgb(251, 247, 247)' }}>
                                     h
                                 </span>
                                 <div
@@ -140,10 +126,7 @@ function Trangchu() {
                                 >
                                     {iconPercent1}
                                 </div>
-                                <Link
-                                    to="/profile"
-                                    style={{ display: 'flex', alignItems: 'center' }}
-                                >
+                                <Link to="/thietbi" style={{ display: 'flex', alignItems: 'center' }}>
                                     <div
                                         style={{
                                             font: 'Nunito',
@@ -151,18 +134,12 @@ function Trangchu() {
                                             textAlign: 'left',
                                         }}
                                     >
-                                        <span
-                                            className="number-percent"
-                                            style={{ font: 'Nunito', display: 'block' }}
-                                        >
+                                        <span className="number-percent" style={{ font: 'Nunito', display: 'block' }}>
                                             4.221
                                         </span>
                                         <span style={{ display: 'block' }}>
                                             {iconNextPercent1}{' '}
-                                            <span
-                                                className="text-percen"
-                                                style={{ color: '#FF7506' }}
-                                            >
+                                            <span className="text-percen" style={{ color: '#FF7506' }}>
                                                 Thiết bị
                                             </span>
                                         </span>
@@ -181,10 +158,7 @@ function Trangchu() {
                                     borderRadius: '12px',
                                 }}
                             >
-                                <span
-                                    className="text-header-content"
-                                    style={{ color: 'rgb(251, 247, 247)' }}
-                                >
+                                <span className="text-header-content" style={{ color: 'rgb(251, 247, 247)' }}>
                                     h
                                 </span>
                                 <div
@@ -196,10 +170,7 @@ function Trangchu() {
                                 >
                                     {iconPercent2}
                                 </div>
-                                <Link
-                                    to="/profile"
-                                    style={{ display: 'flex', alignItems: 'center' }}
-                                >
+                                <Link to="/dichvu" style={{ display: 'flex', alignItems: 'center' }}>
                                     <div
                                         style={{
                                             font: 'Nunito',
@@ -207,18 +178,12 @@ function Trangchu() {
                                             textAlign: 'left',
                                         }}
                                     >
-                                        <span
-                                            className="number-percent"
-                                            style={{ font: 'Nunito', display: 'block' }}
-                                        >
+                                        <span className="number-percent" style={{ font: 'Nunito', display: 'block' }}>
                                             276
                                         </span>
                                         <span style={{ display: 'block' }}>
                                             {iconNextPercent2}{' '}
-                                            <span
-                                                className="text-percen"
-                                                style={{ color: '#4277FF' }}
-                                            >
+                                            <span className="text-percen" style={{ color: '#4277FF' }}>
                                                 Dịch vụ
                                             </span>
                                         </span>
@@ -237,10 +202,7 @@ function Trangchu() {
                                     borderRadius: '12px',
                                 }}
                             >
-                                <span
-                                    className="text-header-content"
-                                    style={{ color: 'rgb(251, 247, 247)' }}
-                                >
+                                <span className="text-header-content" style={{ color: 'rgb(251, 247, 247)' }}>
                                     h
                                 </span>
                                 <div
@@ -252,10 +214,7 @@ function Trangchu() {
                                 >
                                     {iconPercent3}
                                 </div>
-                                <Link
-                                    to="/profile"
-                                    style={{ display: 'flex', alignItems: 'center' }}
-                                >
+                                <Link to="/capso" style={{ display: 'flex', alignItems: 'center' }}>
                                     <div
                                         style={{
                                             font: 'Nunito',
@@ -263,18 +222,12 @@ function Trangchu() {
                                             textAlign: 'left',
                                         }}
                                     >
-                                        <span
-                                            className="number-percent"
-                                            style={{ font: 'Nunito', display: 'block' }}
-                                        >
+                                        <span className="number-percent" style={{ font: 'Nunito', display: 'block' }}>
                                             4221
                                         </span>
                                         <span style={{ display: 'block' }}>
                                             {iconNextPercent3}{' '}
-                                            <span
-                                                className="text-percen"
-                                                style={{ color: '#35C75A' }}
-                                            >
+                                            <span className="text-percen" style={{ color: '#35C75A' }}>
                                                 Cấp số
                                             </span>
                                         </span>

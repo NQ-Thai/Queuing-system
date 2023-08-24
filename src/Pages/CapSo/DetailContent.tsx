@@ -1,45 +1,10 @@
-import { Layout, MenuProps, message } from 'antd';
+import { Layout } from 'antd';
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
-
-type MenuItemType = {
-    label: string;
-    key: string;
-};
-
-const itemsHoatDong: MenuItemType[] = [
-    {
-        label: 'Kiosk',
-        key: '1',
-    },
-    {
-        label: 'Display counter',
-        key: '2',
-    },
-];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsHoatDong,
-    onClick: handleMenuClick,
-};
+import { Link } from 'react-router-dom';
 
 const { Content } = Layout;
 
 function DetailContent() {
-    const navigate = useNavigate();
-
-    const handleCancel = () => {
-        navigate('/thietbi');
-    };
-
-    const handleContinue = () => {
-        navigate('/thietbi');
-    };
     return (
         <Content
             style={{
