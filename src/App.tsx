@@ -42,15 +42,15 @@ function App() {
                     <Route path="/dashboard" element={<Trangchu />} />
                     <Route path="/thietbi" element={<ThietBi />} />
                     <Route path="/themthietbi" element={<ThemThietBi />} />
-                    <Route path="/chitietthietbi" element={<ChiTiet />} />
-                    <Route path="/capnhatthietbi" element={<UpdateThietBi />} />
+                    <Route path="/chitietthietbi/:id" Component={ChiTiet} />
+                    <Route path="/capnhatthietbi/:id" Component={UpdateThietBi} />
                     <Route path="/dichvu" element={<DichVu />} />
                     <Route path="/themdichvu" element={<AddDichVu />} />
-                    <Route path="/capnhatdichvu" element={<UpdateDichVu />} />
-                    <Route path="/chitietdichvu" element={<DetailDichVu />} />
+                    <Route path="/capnhatdichvu/:id" Component={UpdateDichVu} />
+                    <Route path="/chitietdichvu/:id" Component={DetailDichVu} />
                     <Route path="/capso" element={<CapSo />} />
                     <Route path="/themcapso" element={<AddCapSo />} />
-                    <Route path="/chitietcapso" element={<DetailCapSo />} />
+                    <Route path="/chitietcapso/:id" Component={DetailCapSo} />
                     <Route path="/baocao" element={<BaoCao />} />
                     <Route path="/caidat" element={<CaiDat />} />
                     <Route path="/quanlyvaitro" element={<VaiTro />} />

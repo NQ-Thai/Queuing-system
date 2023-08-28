@@ -26,33 +26,10 @@ function NavBar() {
         }
     };
 
-    const shouldShowNavBar = [
-        '/dashboard',
-        '/thietbi',
-        '/themthietbi',
-        '/chitietthietbi',
-        '/capnhatthietbi',
-        '/dichvu',
-        '/themdichvu',
-        '/chitietdichvu',
-        '/capnhatdichvu',
-        '/capso',
-        '/themcapso',
-        '/chitietcapso',
-        '/baocao',
-        '/caidat',
-        '/quanlyvaitro',
-        '/quanlyvaitro/themvaitro',
-        '/quanlyvaitro/capnhatvaitro',
-        '/quanlytaikhoan',
-        '/quanlytaikhoan/capnhat',
-        '/quanlytaikhoan/themtaikhoan',
-        '/nhatkynguoidung',
-        '/profile',
-    ].includes(location.pathname);
+    const shouldShowNavBar = ['/', '/authemail', '/resetpass'].includes(location.pathname);
 
     let matchingKey: string | null = null;
-    if (shouldShowNavBar) {
+    if (!shouldShowNavBar) {
         const pathToKeyMap: Record<string, string> = {
             '/dashboard': '/dashboard',
             '/thietbi': '/thietbi',
@@ -85,7 +62,7 @@ function NavBar() {
 
     return (
         <>
-            {shouldShowNavBar && (
+            {!shouldShowNavBar && (
                 <Sider theme="light" className="sider">
                     <div
                         style={{
@@ -99,36 +76,37 @@ function NavBar() {
                         </Link>
                     </div>
                     <Menu
+                        style={{ width: '200px' }}
                         className="menu-width ant-menu-light"
                         theme="light"
                         mode="vertical"
                         selectedKeys={[selectedMenuKey!]}
                     >
-                        <Menu.Item style={{ height: '48px' }} key="/dashboard">
+                        <Menu.Item style={{ height: '48px', width: '195px' }} key="/dashboard">
                             {iconDashboard}
                             <Link className="text-menu" to="/dashboard">
                                 Dashboard
                             </Link>
                         </Menu.Item>
-                        <Menu.Item style={{ height: '48px' }} key="/thietbi">
+                        <Menu.Item style={{ height: '48px', width: '195px' }} key="/thietbi">
                             <HiOutlineDesktopComputer className="icon-menu-sider" />
                             <Link className="text-menu" to="/thietbi">
                                 Thiết bị
                             </Link>
                         </Menu.Item>
-                        <Menu.Item style={{ height: '48px' }} key="/dichvu">
+                        <Menu.Item style={{ height: '48px', width: '195px' }} key="/dichvu">
                             {iconDichVu}
                             <Link className="text-menu=" to="/dichvu">
                                 Dịch vụ
                             </Link>
                         </Menu.Item>
-                        <Menu.Item style={{ height: '48px' }} key="/capso">
+                        <Menu.Item style={{ height: '48px', width: '195px' }} key="/capso">
                             <SiDatabricks className="icon-menu-sider" />
                             <Link className="text-menu" to="/capso">
                                 Cấp số
                             </Link>
                         </Menu.Item>
-                        <Menu.Item style={{ height: '48px' }} key="/baocao">
+                        <Menu.Item style={{ height: '48px', width: '195px' }} key="/baocao">
                             {iconBaoCao}
                             <Link className="text-menu" to="/baocao">
                                 Báo cáo
@@ -136,7 +114,7 @@ function NavBar() {
                         </Menu.Item>
                         <Menu.SubMenu
                             className="text-menu"
-                            style={{ height: '48px' }}
+                            style={{ height: '48px', width: '202px' }}
                             key="/caidat"
                             title="Cài đặt hệ thống"
                             icon={<TbSettings2 className="icon-menu-sider" />}

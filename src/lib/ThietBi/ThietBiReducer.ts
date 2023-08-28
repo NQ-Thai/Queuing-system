@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import { app } from '../Firebase';
-import { ThietBi } from '../ThietBi/ThietBiSlice';
+import { ThietBi } from '../Type/ThietBi';
 
 export const fetchData = createAsyncThunk<ThietBi[]>('thietbi/fetchData', async () => {
     const firestore = getFirestore(app);

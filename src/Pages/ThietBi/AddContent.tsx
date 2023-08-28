@@ -1,45 +1,86 @@
 import { CaretDownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Input, Layout, Menu, MenuProps, message } from 'antd';
+import { addDoc, collection } from 'firebase/firestore';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { firestore } from '../../lib/Firebase';
 
 type MenuItemType = {
     label: string;
     key: string;
 };
 
-const itemsHoatDong: MenuItemType[] = [
+const itemsThietBi: MenuItemType[] = [
     {
         label: 'Kiosk',
-        key: '1',
+        key: 'Kiosk',
     },
     {
         label: 'Display counter',
-        key: '2',
+        key: 'Display counter',
     },
 ];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsHoatDong,
-    onClick: handleMenuClick,
-};
-
-const { Content } = Layout;
-
 function AddContent() {
+    const handleMenuClick: MenuProps['onClick'] = (e) => {
+        const selectedKey = e.key as string;
+        const selectedMenuItem = itemsThietBi.find((item) => item.key === selectedKey);
+        if (selectedMenuItem) {
+            setSelectedLoaiThietBi(selectedMenuItem.label); // Lưu giá trị từ dropdown
+        }
+    };
+
+    const menuPropsHoatDong = {
+        itemsThietBi,
+        onClick: handleMenuClick,
+    };
+
+    const { Content } = Layout;
+
+    const [selectedLoaiThietBi, setSelectedLoaiThietBi] = useState('');
     const navigate = useNavigate();
 
     const handleCancel = () => {
         navigate('/thietbi');
     };
 
-    const handleContinue = () => {
-        navigate('/thietbi');
+    const handleSave = async () => {
+        const maThietBiInput = document.getElementById('maThietBi') as HTMLInputElement;
+        const maThietBi = maThietBiInput.value;
+        const tenThietBiInput = document.getElementById('tenThietBi') as HTMLInputElement;
+        const tenThietBi = tenThietBiInput.value;
+        const diaChiIDInput = document.getElementById('diaChiID') as HTMLInputElement;
+        const diaChiID = diaChiIDInput.value;
+        const tenDangNhapInput = document.getElementById('tenDangNhap') as HTMLInputElement;
+        const tenDangNhap = tenDangNhapInput.value;
+        const matKhauInput = document.getElementById('matKhau') as HTMLInputElement;
+        const matKhau = matKhauInput.value;
+        const dichVuInput = document.getElementById('dichVu') as HTMLInputElement;
+        const dichVu = dichVuInput.value;
+
+        if (!maThietBi || !tenThietBi || !diaChiID || !tenDangNhap || !matKhau || !dichVu || !selectedLoaiThietBi) {
+            message.error('Vui lòng nhập đầy đủ thông tin.');
+            return;
+        }
+
+        try {
+            await addDoc(collection(firestore, 'thietbi'), {
+                MaThietBi: maThietBi,
+                TenThietBi: tenThietBi,
+                DiaChiIP: diaChiID,
+                TenDangNhap: tenDangNhap,
+                MatKhau: matKhau,
+                DichVu: dichVu,
+                TrangThaiHoatDong: 'Hoạt động',
+                TrangThaiKetNoi: 'Kết nối',
+                LoaiThietBi: selectedLoaiThietBi,
+            });
+
+            navigate('/thietbi');
+        } catch (error) {
+            message.error('Đã xảy ra lỗi khi thêm thiết bị.');
+        }
     };
+
     return (
         <Content
             style={{
@@ -91,6 +132,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="maThietBi"
                                         placeholder="Nhập mã thiết bị"
                                         style={{
                                             width: '540px',
@@ -119,6 +161,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="tenThietBi"
                                         placeholder="Nhập tên thiết bị"
                                         style={{
                                             width: '540px',
@@ -147,6 +190,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="diaChiID"
                                         placeholder="Nhập địa chỉ IP"
                                         style={{
                                             width: '540px',
@@ -179,7 +223,7 @@ function AddContent() {
                                 <Dropdown
                                     overlay={
                                         <Menu onClick={handleMenuClick}>
-                                            {menuPropsHoatDong.itemsHoatDong.map((item) => (
+                                            {menuPropsHoatDong.itemsThietBi.map((item) => (
                                                 <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                             ))}
                                         </Menu>
@@ -188,6 +232,7 @@ function AddContent() {
                                     overlayStyle={{ width: '300px' }}
                                 >
                                     <Button
+                                        id="loaiThietBi"
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -196,7 +241,11 @@ function AddContent() {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        <span style={{ color: '#A9A9B0' }}>Chọn loại thiết bị</span>
+                                        <span style={{ color: '#A9A9B0' }}>
+                                            {selectedLoaiThietBi
+                                                ? itemsThietBi.find((item) => item.key === selectedLoaiThietBi)?.label
+                                                : 'Chọn loại thiết bị'}
+                                        </span>
                                         <CaretDownOutlined
                                             style={{
                                                 color: '#FF7506',
@@ -227,6 +276,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="tenDangNhap"
                                         placeholder="Nhập tài khoản"
                                         style={{
                                             width: '540px',
@@ -255,6 +305,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="matKhau"
                                         placeholder="Nhập mật khẩu"
                                         style={{
                                             width: '540px',
@@ -285,6 +336,7 @@ function AddContent() {
                         }}
                     >
                         <Input
+                            id="dichVu"
                             placeholder="Nhập dịch vụ sử dụng"
                             style={{
                                 width: '1104px',
@@ -338,7 +390,7 @@ function AddContent() {
                         width: '140px',
                         marginLeft: '24px',
                     }}
-                    onClick={handleContinue}
+                    onClick={handleSave}
                 >
                     <span className="text-button-login">Thêm thiết bị</span>
                 </Button>

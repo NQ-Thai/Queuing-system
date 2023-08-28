@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import { useEffect } from 'react';
+import { DatePicker, Layout } from 'antd';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { iconBell, iconNextPercent1, iconNextPercent2, iconNextPercent3, iconPercent1, iconPercent2, iconPercent3 } from '../../assets/svg/svg';
@@ -7,7 +7,10 @@ import { fetchData } from '../../lib/ThietBi/ThietBiReducer';
 import { AppDispatch, RootState } from '../../lib/store';
 import ContentDashBoard from './content';
 
+import 'react-datepicker/dist/react-datepicker.css';
+
 function Trangchu() {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const dispatch: AppDispatch = useDispatch();
 
     const users = useSelector((state: RootState) => state.User.user);
@@ -107,7 +110,7 @@ function Trangchu() {
                                 id="header"
                                 style={{
                                     margin: '0 24px 12px 24px',
-                                    backgroundColor: 'rgb(251, 247, 247)',
+                                    boxShadow: '1px 1px 10px rgba(0, 0, 0, 0.1)',
                                     font: 'Nunito',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -151,7 +154,7 @@ function Trangchu() {
                                 id="header"
                                 style={{
                                     margin: '0 24px 12px 24px',
-                                    backgroundColor: 'rgb(251, 247, 247)',
+                                    boxShadow: '1px 1px 10px rgba(0, 0, 0, 0.1)',
                                     font: 'Nunito',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -195,11 +198,11 @@ function Trangchu() {
                                 id="header"
                                 style={{
                                     margin: '0 24px 12px 24px',
-                                    backgroundColor: 'rgb(251, 247, 247)',
                                     font: 'Nunito',
                                     display: 'flex',
                                     alignItems: 'center',
                                     borderRadius: '12px',
+                                    boxShadow: '1px 1px 10px rgba(0, 0, 0, 0.1)',
                                 }}
                             >
                                 <span className="text-header-content" style={{ color: 'rgb(251, 247, 247)' }}>
@@ -233,6 +236,10 @@ function Trangchu() {
                                         </span>
                                     </div>
                                 </Link>
+                            </div>
+
+                            <div style={{ marginTop: '230px' }}>
+                                <DatePicker />
                             </div>
                         </div>
                     </div>

@@ -177,6 +177,20 @@
     margin: 0 0 0 20px;
 }
 
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-submenu-title:active,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu-light > .ant-menu:not(.ant-menu-horizontal) .ant-menu-submenu-title:active {
+    background-color: orange;
+}
+
+.ant-picker-panel {
+    width: 300px;
+    height: 300px; /* Thay đổi giá trị theo nhu cầu của bạn */
+}
+
+.ant-picker-dropdown {
+    z-index: 500px;
+}
+
 /* Sider */
 
 .sider {
@@ -187,6 +201,12 @@
 /* Sider.css */
 .menu-width {
     width: 100%;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu .ant-menu-item,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu .ant-menu-submenu,
+:where(.css-dev-only-do-not-override-19gw05y).ant-menu .ant-menu-submenu-title {
+    border-radius: 0;
 }
 
 .icon-menu-sider {

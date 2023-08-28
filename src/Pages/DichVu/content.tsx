@@ -1,17 +1,9 @@
-import {
-    Button,
-    DatePicker,
-    DatePickerProps,
-    Dropdown,
-    Layout,
-    Menu,
-    MenuProps,
-    message,
-} from 'antd';
+import { Button, DatePicker, DatePickerProps, Dropdown, Layout, Menu, MenuProps } from 'antd';
 
 import { CalendarOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SearchThietBi from '../ThietBi/Search';
+import SearchDichVu from './Search';
 import TableDichVu from './Table';
 
 type MenuItemType = {
@@ -23,34 +15,33 @@ const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     console.log(date, dateString);
 };
 
-const itemsDichVu: MenuItemType[] = [
+const itemsHoatDong: MenuItemType[] = [
     {
         label: 'Tất cả',
-        key: '1',
+        key: 'Tất cả',
     },
     {
         label: 'Hoạt động',
-        key: '2',
+        key: 'Hoạt động',
     },
     {
         label: 'Ngưng hoạt động',
-        key: '3',
+        key: 'Ngưng hoạt động',
     },
 ];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsDichVu = {
-    itemsDichVu,
-    onClick: handleMenuClick,
-};
-
 const { Content } = Layout;
 
 function ContentDichVu() {
+    const handleHoatDong: MenuProps['onClick'] = (e) => {
+        setSelectedTrangThaiHoatDong(e.key);
+    };
+
+    const menuPropsHoatDong = {
+        itemsHoatDong,
+        onClick: handleHoatDong,
+    };
+
+    const [selectedTrangThaiHoatDong, setSelectedTrangThaiHoatDong] = useState<string | null>(null);
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex' }}>
@@ -70,8 +61,8 @@ function ContentDichVu() {
                         >
                             <Dropdown
                                 overlay={
-                                    <Menu onClick={handleMenuClick}>
-                                        {menuPropsDichVu.itemsDichVu.map((item) => (
+                                    <Menu onClick={handleHoatDong}>
+                                        {menuPropsHoatDong.itemsHoatDong.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
                                     </Menu>
@@ -88,7 +79,11 @@ function ContentDichVu() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        {selectedTrangThaiHoatDong
+                                            ? itemsHoatDong.find((item) => item.key === selectedTrangThaiHoatDong)?.label
+                                            : 'Tất cả'}
+                                    </span>
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
@@ -103,18 +98,14 @@ function ContentDichVu() {
                     </div>
                 </div>
 
-                <div style={{ display: 'inline-block', marginRight: '148px' }}>
+                <div style={{ display: 'inline-block', marginRight: '240px' }}>
                     <div style={{ marginBottom: '5px' }}>
-                        <span className="title2-baocao" style={{ font: 'Nunito' }}>
+                        <span className="title-baocao" style={{ font: 'Nunito' }}>
                             Chọn thời gian
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
-                        <DatePicker
-                            suffixIcon={<CalendarOutlined />}
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
+                        <DatePicker suffixIcon={<CalendarOutlined />} style={{ height: '44px', width: '150px' }} onChange={onChange} />
                         <span style={{ margin: '0 4px 0 4px' }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -127,10 +118,7 @@ function ContentDichVu() {
                                 <path d="M3 0L10 5L3 10V0Z" fill="currentColor" />
                             </svg>
                         </span>
-                        <DatePicker
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
+                        <DatePicker style={{ height: '44px', width: '150px' }} onChange={onChange} />
                     </div>
                 </div>
 
@@ -148,14 +136,14 @@ function ContentDichVu() {
                                 display: 'inline',
                             }}
                         >
-                            <SearchThietBi />
+                            <SearchDichVu />
                         </div>
                     </div>
                 </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableDichVu />
+                    <TableDichVu selectedTrangThaiHoatDong={selectedTrangThaiHoatDong} />
                 </div>
                 <Link to="/themdichvu">
                     <div
@@ -183,9 +171,7 @@ function ContentDichVu() {
                                 margin: '0 0 10px 15px',
                             }}
                         >
-                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>
-                                +
-                            </span>
+                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>+</span>
                         </div>
 
                         <span className="text-add-button" style={{ font: 'Nunito' }}>

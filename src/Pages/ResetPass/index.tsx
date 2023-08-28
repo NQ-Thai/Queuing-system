@@ -1,13 +1,29 @@
 import { Button, Input } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import logo3 from '../../assets/images/Frame.png';
 import logo from '../../assets/images/Logo alta.png';
 
 function ResetPass() {
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const { email } = location.state || {};
 
-    const handleConfirm = () => {
-        navigate('/');
+    const handleConfirm = async () => {
+        // try {
+        //     if (password === confirmPassword && email) {
+        //         // Đặt lại mật khẩu thông qua email
+        //         await auth.sendPasswordResetEmail(email);
+        //         navigate('/');
+        //     } else {
+        //         console.error('Password and confirm password do not match, or email is missing.');
+        //     }
+        // } catch (error) {
+        //     console.error('Error confirming password reset:', error);
+        //     // Handle error (e.g., show error message to the user)
+        // }
     };
 
     return (
@@ -41,10 +57,13 @@ function ResetPass() {
                                 }}
                             >
                                 <Input.Password
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     style={{
                                         width: '400px',
                                         height: '40px',
                                     }}
+                                    placeholder="Mật khẩu mới"
                                 />
                             </div>
                         </div>
@@ -70,10 +89,13 @@ function ResetPass() {
                                 }}
                             >
                                 <Input.Password
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     style={{
                                         width: '400px',
                                         height: '40px',
                                     }}
+                                    placeholder="Xác nhận mật khẩu mới"
                                 />
                             </div>
                         </div>

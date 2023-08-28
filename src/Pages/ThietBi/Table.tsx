@@ -3,13 +3,26 @@ import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { BsFillCircleFill } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchData } from '../../lib/ThietBi/ThietBiReducer';
+import { DocumentData, QuerySnapshot, onSnapshot } from 'firebase/firestore';
+import { ThietBi } from '../../lib/Type/ThietBi';
+import { thietbiCollection } from '../../lib/controller';
 
-import { AppDispatch, RootState } from '../../lib/store';
-import { setSelectedThietBiDetail, ThietBi } from '../../lib/ThietBi/ThietBiSlice';
+interface ThietBi1 {
+    key?: string;
+    id?: string;
+    TenDangNhap?: string;
+    MatKhau?: string;
+    MaThietBi?: string;
+    TenThietBi?: string;
+    LoaiThietBi?: string;
+    DiaChiIP?: string;
+    TrangThaiHoatDong?: string;
+    TrangThaiKetNoi?: string;
+    DichVu?: string;
+    isExpanded?: boolean;
+}
 
 const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedTrangThaiHoatDong: string | null; searchValue: string }> = ({
     selectedTrangThaiKetNoi,
@@ -72,40 +85,65 @@ const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedT
         }
     };
 
-    const dispatch: AppDispatch = useDispatch();
+    const [thietbis, setThietbi] = useState<ThietBi[]>([]);
 
-    const thietbis = useSelector((state: RootState) => state.Thietbi.thietbi);
+    useEffect(
+        () =>
+            onSnapshot(thietbiCollection, (snapshot: QuerySnapshot<DocumentData>) => {
+                setThietbi(
+                    snapshot.docs.map((doc, index) => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            STT: `${index + 1}`,
+                            ...data,
+                        };
+                    }),
+                );
+            }),
+        [],
+    );
+
+    const [filteredData, setFilteredData] = useState<ThietBi[]>(thietbis);
 
     useEffect(() => {
-        dispatch(fetchData());
-    }, [dispatch]);
+        setFilteredData(thietbis);
+    }, [thietbis]);
 
-    const handleDetailClick = (record: ThietBi) => {
-        dispatch(setSelectedThietBiDetail(record));
-    };
-    // Tạo hàm kiểm tra trạng thái kết nối
-    const checkTrangThaiKetNoi = (trangThaiKetNoi: string, selectedTrangThaiKetNoi: string | null) => {
-        return selectedTrangThaiKetNoi === null || selectedTrangThaiKetNoi === 'Tất cả' || trangThaiKetNoi === selectedTrangThaiKetNoi;
-    };
-
-    const checkTrangThaiHoatDong = (trangThaiHoatDong: string, selectedTrangThaiHoatDong: string | null) => {
-        return selectedTrangThaiHoatDong === null || selectedTrangThaiHoatDong === 'Tất cả' || trangThaiHoatDong === selectedTrangThaiHoatDong;
+    const checkTrangThaiKetNoi = (trangThaiKetNoi: string | undefined, selectedTrangThaiKetNoi: string | null) => {
+        return (
+            trangThaiKetNoi === undefined ||
+            selectedTrangThaiKetNoi === null ||
+            selectedTrangThaiKetNoi === 'Tất cả' ||
+            trangThaiKetNoi === selectedTrangThaiKetNoi
+        );
     };
 
-    const filteredThietBis = thietbis.filter(
+    const checkTrangThaiHoatDong = (trangThaiHoatDong: string | undefined, selectedTrangThaiHoatDong: string | null) => {
+        return (
+            trangThaiHoatDong === undefined ||
+            selectedTrangThaiHoatDong === null ||
+            selectedTrangThaiHoatDong === 'Tất cả' ||
+            trangThaiHoatDong === selectedTrangThaiHoatDong
+        );
+    };
+
+    const filteredThietBis = filteredData.filter(
         (thietbi) =>
             checkTrangThaiKetNoi(thietbi.TrangThaiKetNoi, selectedTrangThaiKetNoi) &&
             checkTrangThaiHoatDong(thietbi.TrangThaiHoatDong, selectedTrangThaiHoatDong) &&
-            (searchValue === '' || thietbi.MaThietBi.includes(searchValue)),
+            (searchValue === '' || (thietbi.MaThietBi && thietbi.MaThietBi.includes(searchValue))),
     );
 
     const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
-    const toggleRowExpansion = (rowKey: string) => {
-        if (expandedRows.includes(rowKey)) {
-            setExpandedRows(expandedRows.filter((key) => key !== rowKey));
-        } else {
-            setExpandedRows([...expandedRows, rowKey]);
+    const toggleRowExpansion = (rowId: string | undefined) => {
+        if (rowId) {
+            if (expandedRows.includes(rowId)) {
+                setExpandedRows(expandedRows.filter((id) => id !== rowId));
+            } else {
+                setExpandedRows([...expandedRows, rowId]);
+            }
         }
     };
 
@@ -168,12 +206,13 @@ const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedT
             render: (DichVu, record) => (
                 <div className="service-column">
                     <div className="popover-wrapper">
-                        {expandedRows.includes(record.key) && <div className="expanded-content show">{DichVu}</div>}
-                        {!expandedRows.includes(record.key) && (
+                        {record.id !== undefined && expandedRows.includes(record.id) ? (
+                            <div className="expanded-content show">{DichVu}</div>
+                        ) : (
                             <div>
-                                <div className="shortened-content">{DichVu.length > 23 ? `${DichVu.slice(0, 23)}...` : DichVu}</div>
-                                {DichVu.length > 23 && (
-                                    <a onClick={() => toggleRowExpansion(record.key)}>
+                                <div className="shortened-content">{DichVu && DichVu.length > 23 ? `${DichVu.slice(0, 23)}...` : DichVu}</div>
+                                {DichVu && DichVu.length > 23 && (
+                                    <a onClick={() => toggleRowExpansion(record.id)}>
                                         <u>Xem thêm</u>
                                     </a>
                                 )}
@@ -189,18 +228,19 @@ const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedT
             key: 'detailAction',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link to={`/chitietthietbi`}>
+                    <Link to={`/chitietthietbi/${record.id}`}>
                         <u>Chi tiết</u>
                     </Link>
                 </Space>
             ),
         },
+
         {
             title: ' ',
             key: 'updateAction',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link to={'/capnhatthietbi'}>
+                    <Link to={`/capnhatthietbi/${record.id}`}>
                         <u>Cập nhật</u>
                     </Link>
                 </Space>
@@ -208,11 +248,21 @@ const TableThietBi: React.FC<{ selectedTrangThaiKetNoi: string | null; selectedT
         },
     ];
 
+    useEffect(() => {
+        console.log(
+            'DichVu:',
+            filteredThietBis.map((tb) => tb.DichVu),
+        );
+        console.log(
+            'Keys:',
+            filteredThietBis.map((tb) => tb.key),
+        );
+    }, [filteredThietBis]);
+
     return (
         <div className="table-wrapper" ref={tableWrapperRef}>
             <Table className="custom-table" columns={columns} dataSource={filteredThietBis} style={{ width: '1112px' }} />
         </div>
     );
 };
-
 export default TableThietBi;

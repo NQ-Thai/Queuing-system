@@ -1,6 +1,10 @@
 import { CaretDownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Input, Layout, Menu, MenuProps, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ThietBi } from '../../lib/Type/ThietBi';
+import { thietbiCollection } from '../../lib/controller';
 
 type MenuItemType = {
     label: string;
@@ -10,36 +14,108 @@ type MenuItemType = {
 const itemsHoatDong: MenuItemType[] = [
     {
         label: 'Kiosk',
-        key: '1',
+        key: 'Kiosk',
     },
     {
         label: 'Display counter',
-        key: '2',
+        key: 'Display counter',
     },
 ];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsHoatDong,
-    onClick: handleMenuClick,
-};
-
-const { Content } = Layout;
-
 function UpdateContent() {
+    // Thêm các biến trạng thái cho các ô Input
+    const [maThietBi, setMaThietBi] = useState('');
+    const [tenThietBi, setTenThietBi] = useState('');
+    const [diaChiIP, setDiaChiIP] = useState('');
+    const [tenDangNhap, setTenDangNhap] = useState('');
+    const [matKhau, setMatKhau] = useState('');
+    const [dichVu, setDichVu] = useState('');
+    const [selectedLoaiThietBi, setSelectedLoaiThietBi] = useState('');
+
+    const handleMenuClick: MenuProps['onClick'] = (e) => {
+        setSelectedLoaiThietBi(e.key);
+        message.info(`Chosen item: ${e.key}`);
+    };
+
+    const menuPropsHoatDong = {
+        itemsHoatDong,
+        onClick: handleMenuClick,
+    };
+
+    const { Content } = Layout;
+
     const navigate = useNavigate();
 
     const handleCancel = () => {
         navigate('/thietbi');
     };
 
-    const handleContinue = () => {
-        navigate('/thietbi');
+    const handleContinue = async () => {
+        if (!thietBiUpdate) {
+            return;
+        }
+
+        try {
+            const docRef = doc(thietbiCollection, id);
+
+            const updatedData: Partial<ThietBi> = {
+                MaThietBi: maThietBi,
+                TenThietBi: tenThietBi,
+                DiaChiIP: diaChiIP,
+                TenDangNhap: tenDangNhap,
+                MatKhau: matKhau,
+                DichVu: dichVu,
+                LoaiThietBi: selectedLoaiThietBi,
+            };
+
+            await updateDoc(docRef, updatedData);
+
+            navigate('/thietbi');
+        } catch (error) {
+            message.error('Đã xảy ra lỗi khi cập nhật thiết bị.');
+        }
     };
+    const { id } = useParams();
+    const [thietBiUpdate, setThietBiUpdate] = useState<ThietBi | null>(null);
+
+    useEffect(() => {
+        const fetchThietBiUpdate = async () => {
+            const docRef = doc(thietbiCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as ThietBi;
+                setThietBiUpdate(data);
+                setMaThietBi(data.MaThietBi || '');
+                setTenThietBi(data.TenThietBi || '');
+                setDiaChiIP(data.DiaChiIP || '');
+                setTenDangNhap(data.TenDangNhap || '');
+                setMatKhau(data.MatKhau || '');
+                setDichVu(data.DichVu || '');
+                setSelectedLoaiThietBi(data.LoaiThietBi || '');
+            }
+        };
+
+        fetchThietBiUpdate();
+    }, [id]);
+
+    useEffect(() => {
+        const fetchThietBiUpdate = async () => {
+            const docRef = doc(thietbiCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as ThietBi;
+                setThietBiUpdate(data);
+            }
+        };
+
+        fetchThietBiUpdate();
+    }, [id]);
+
+    if (!thietBiUpdate) {
+        return <div></div>;
+    }
+
     return (
         <Content
             style={{
@@ -91,7 +167,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'KIO_01'}
+                                        defaultValue={thietBiUpdate.MaThietBi}
+                                        onChange={(e) => setMaThietBi(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -119,7 +196,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'Kiosk'}
+                                        defaultValue={thietBiUpdate.TenThietBi}
+                                        onChange={(e) => setTenThietBi(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -147,7 +225,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'128.172.308'}
+                                        defaultValue={thietBiUpdate.DiaChiIP}
+                                        onChange={(e) => setDiaChiIP(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -196,7 +275,7 @@ function UpdateContent() {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        <span>Kiosk</span>
+                                        <span>{selectedLoaiThietBi}</span>
                                         <CaretDownOutlined
                                             style={{
                                                 color: '#FF7506',
@@ -227,7 +306,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'Linhkyo011'}
+                                        defaultValue={thietBiUpdate.TenDangNhap}
+                                        onChange={(e) => setTenDangNhap(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -255,7 +335,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'CMS'}
+                                        defaultValue={thietBiUpdate.MatKhau}
+                                        onChange={(e) => setMatKhau(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -285,9 +366,10 @@ function UpdateContent() {
                         }}
                     >
                         <Input
-                            placeholder="Nhập dịch vụ sử dụng"
+                            defaultValue={thietBiUpdate.DichVu}
+                            onChange={(e) => setDichVu(e.target.value)}
                             style={{
-                                width: '1104px',
+                                width: '540px',
                                 height: '44px',
                                 backgroundColor: '#FFFFFF',
                             }}

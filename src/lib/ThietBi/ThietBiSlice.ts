@@ -1,18 +1,5 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface ThietBi {
-    key: string;
-    id: string;
-    TenDangNhap: string;
-    MatKhau: string;
-    MaThietBi: string;
-    TenThietBi: string;
-    DiaChiIP: string;
-    TrangThaiHoatDong: string;
-    TrangThaiKetNoi: string;
-    DichVu: string;
-    isExpanded: boolean;
-}
+import { ThietBi } from '../Type/ThietBi';
 
 export interface ThietbiState {
     thietbis: ThietBi[];
@@ -58,9 +45,7 @@ const thietbiSlice = createSlice({
     },
 });
 
-export const setSelectedThietBiDetail = createAction<ThietBi | null>(
-    'thietbi/setSelectedThietBiDetail',
-);
+export const setSelectedThietBiDetail = createAction<ThietBi | null>('thietbi/setSelectedThietBiDetail');
 
 export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = thietbiSlice.actions;
 

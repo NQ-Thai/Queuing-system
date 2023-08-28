@@ -16,4 +16,10 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const firestore: Firestore = getFirestore(app);
+
 export const auth: Auth = getAuth(app);
+declare module 'firebase/auth' {
+    interface Auth {
+        sendPasswordResetEmail(email: string): Promise<void>;
+    }
+}

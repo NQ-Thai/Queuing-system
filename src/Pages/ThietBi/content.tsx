@@ -190,7 +190,7 @@ function ContentThietBi() {
                                 display: 'inline',
                             }}
                         >
-                            <SearchThietBi />
+                            <SearchThietBi onSearch={handleSearch} />
                         </div>
                     </div>
                 </div>

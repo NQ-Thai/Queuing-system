@@ -2,8 +2,11 @@ import { Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect, useRef, useState } from 'react';
 
+import { DocumentData, QuerySnapshot, onSnapshot } from 'firebase/firestore';
 import { BsFillCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { CapSo } from '../../lib/Type/CapSo';
+import { capSoCollection } from '../../lib/controller';
 
 interface DataType {
     key: string;
@@ -56,7 +59,7 @@ const renderTrangThai = (trangThai: string) => {
     }
 };
 
-const TableCapSo: React.FC = () => {
+const TableCapSo: React.FC<{ selectedTrangThaiDichVu: string | null }> = ({ selectedTrangThaiDichVu }) => {
     const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
     const tableWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -82,7 +85,7 @@ const TableCapSo: React.FC = () => {
         };
     }, []);
 
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<CapSo> = [
         {
             title: 'STT',
             dataIndex: 'STT',
@@ -90,18 +93,18 @@ const TableCapSo: React.FC = () => {
         },
         {
             title: 'Tên khách hàng',
-            dataIndex: 'tenKhachHang',
-            key: 'tenKhachHang',
+            dataIndex: 'TenKhachHang',
+            key: 'TenKhachHang',
         },
         {
             title: 'Tên dịch vụ',
-            dataIndex: 'tenDichVu',
-            key: 'tenDichVu',
+            dataIndex: 'TenDichVu',
+            key: 'TenDichVu',
         },
         {
             title: 'Thời gian cấp',
-            key: 'thoiGianCap',
-            dataIndex: 'thoiGianCap',
+            key: 'ThoiGianCap',
+            dataIndex: 'ThoiGianCap',
         },
         {
             title: 'Hạn sử dụng',
@@ -110,70 +113,66 @@ const TableCapSo: React.FC = () => {
         },
         {
             title: 'Trạng thái',
-            dataIndex: 'trangThai',
-            key: 'trangThai',
+            dataIndex: 'TrangThai',
+            key: 'TrangThai',
             render: renderTrangThai,
         },
 
         {
             title: 'Nguồn cấp',
-            dataIndex: 'nguonCap',
-            key: 'nguonCap',
+            dataIndex: 'NguonCap',
+            key: 'NguonCap',
         },
         {
             title: ' ',
             key: 'updateAction',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link to={'/chitietcapso'}>
+                    <Link to={`/chitietcapso/${record.id}`}>
                         <u>Chi tiết</u>
                     </Link>
                 </Space>
             ),
         },
     ];
+    const [capso, setCapSo] = useState<CapSo[]>([]);
+    const [filteredData, setFilteredData] = useState<CapSo[]>(capso);
 
-    const data: DataType[] = [
-        {
-            key: '1',
-            STT: '2010001',
-            tenKhachHang: 'Lê Huỳnh Ái Vân',
-            tenDichVu: 'Khám tim mạch',
-            thoiGianCap: '14:35 - 07/11/2021',
-            HanSuDung: '14:35 - 12/11/2021',
-            trangThai: 'Đang chờ',
-            nguonCap: 'Kiosk',
-        },
-        {
-            key: '2',
-            STT: '2010002',
-            tenKhachHang: 'Huỳnh Ái Vân',
-            tenDichVu: 'Khám sản - Phụ Khoa',
-            thoiGianCap: '14:35 - 07/11/2021',
-            HanSuDung: '14:35 - 12/11/2021',
-            trangThai: 'Đã sử dụng',
-            nguonCap: 'Kiosk',
-        },
-        {
-            key: '3',
-            STT: '2010003',
-            tenKhachHang: 'Lê Ái Vân',
-            tenDichVu: 'Khám răng hàm mặt',
-            thoiGianCap: '14:35 - 07/11/2021',
-            HanSuDung: '14:35 - 12/11/2021',
-            trangThai: 'Bỏ qua',
-            nguonCap: 'Hệ thống',
-        },
-    ];
+    useEffect(() => {
+        setFilteredData(capso);
+    }, [capso]);
+
+    const checkTrangThaidichVu = (trangThaiDichVu: string | undefined, checkTrangThaidichVu: string | null) => {
+        return (
+            trangThaiDichVu === undefined ||
+            checkTrangThaidichVu === null ||
+            checkTrangThaidichVu === 'Tất cả' ||
+            trangThaiDichVu === checkTrangThaidichVu
+        );
+    };
+
+    const filteredCapSos = filteredData.filter((capso) => checkTrangThaidichVu(capso.TenDichVu, selectedTrangThaiDichVu));
+
+    useEffect(
+        () =>
+            onSnapshot(capSoCollection, (snapshot: QuerySnapshot<DocumentData>) => {
+                setCapSo(
+                    snapshot.docs.map((doc, index) => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            STT: `${index + 1}`,
+                            ...data,
+                        };
+                    }),
+                );
+            }),
+        [],
+    );
 
     return (
         <div className="table-wrapper" ref={tableWrapperRef}>
-            <Table
-                className="custom-table"
-                columns={columns}
-                dataSource={data}
-                style={{ width: '1112px' }}
-            />
+            <Table className="custom-table" columns={columns} dataSource={filteredCapSos} style={{ width: '1112px' }} />
         </div>
     );
 };

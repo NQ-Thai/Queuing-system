@@ -1,10 +1,34 @@
 import { Layout } from 'antd';
+import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { CapSo } from '../../lib/Type/CapSo';
+import { capSoCollection } from '../../lib/controller';
 
 const { Content } = Layout;
 
 function DetailContent() {
+    const { id } = useParams();
+    const [capSoDetail, setCapSoDetail] = useState<CapSo | null>(null);
+
+    useEffect(() => {
+        const fetchCapSoDetail = async () => {
+            const docRef = doc(capSoCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as CapSo;
+                setCapSoDetail(data);
+            }
+        };
+
+        fetchCapSoDetail();
+    }, [id]);
+
+    if (!capSoDetail) {
+        return <div></div>;
+    }
     return (
         <Content
             style={{
@@ -39,7 +63,7 @@ function DetailContent() {
                             }}
                         >
                             <div style={{ flex: 1, display: 'inline', margin: '0 24px 30px 0' }}>
-                                <div style={{ marginBottom: '16px' }}>
+                                <div style={{ marginBottom: '16px', width: '300px' }}>
                                     <span
                                         style={{
                                             font: 'Nunito',
@@ -47,11 +71,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Họ tên:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '73px', font: 'Nunito' }}
-                                        >
-                                            Nguyễn Thị Dung
+                                        <span className="text-detail" style={{ marginLeft: '73px', font: 'Nunito' }}>
+                                            {capSoDetail.TenKhachHang}
                                         </span>
                                     </span>
                                 </div>
@@ -64,11 +85,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Tên dịch vụ:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '39px' }}
-                                        >
-                                            Khám tim mạch
+                                        <span className="text-detail" style={{ marginLeft: '39px' }}>
+                                            {capSoDetail.TenDichVu}
                                         </span>
                                     </span>
                                 </div>
@@ -81,11 +99,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Số thứ tự:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '50px' }}
-                                        >
-                                            12001201
+                                        <span className="text-detail" style={{ marginLeft: '50px' }}>
+                                            {capSoDetail.STT}
                                         </span>
                                     </span>
                                 </div>
@@ -98,11 +113,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Thời gian cấp:
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '24px' }}
-                                        >
-                                            14:35 - 07/11/2021
+                                        <span className="text-detail" style={{ marginLeft: '24px' }}>
+                                            {capSoDetail.ThoiGianCap}
                                         </span>
                                     </span>
                                 </div>
@@ -117,11 +129,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Nguồn cấp:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '40px' }}
-                                        >
-                                            Kiosk
+                                        <span className="text-detail" style={{ marginLeft: '40px' }}>
+                                            {capSoDetail.NguonCap}
                                         </span>
                                     </span>
                                 </div>
@@ -134,11 +143,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Trạng thái:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '46px' }}
-                                        >
-                                            Đang chờ
+                                        <span className="text-detail" style={{ marginLeft: '46px' }}>
+                                            {capSoDetail.TrangThai}
                                         </span>
                                     </span>
                                 </div>
@@ -151,16 +157,13 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Số điện thoại:{' '}
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '24px' }}
-                                        >
-                                            0948523623
+                                        <span className="text-detail" style={{ marginLeft: '24px' }}>
+                                            {capSoDetail.SDT}
                                         </span>
                                     </span>
                                 </div>
 
-                                <div style={{ marginBottom: '16px' }}>
+                                <div style={{ marginBottom: '16px', width: '350px' }}>
                                     <span
                                         style={{
                                             font: 'Nunito',
@@ -168,11 +171,8 @@ function DetailContent() {
                                         className="text-change-input"
                                     >
                                         Địa chỉ Email:
-                                        <span
-                                            className="text-detail"
-                                            style={{ marginLeft: '30px' }}
-                                        >
-                                            nguyendung@
+                                        <span className="text-detail" style={{ marginLeft: '30px' }}>
+                                            {capSoDetail.Email}
                                         </span>
                                     </span>
                                 </div>
@@ -188,7 +188,7 @@ function DetailContent() {
                         >
                             Hạn sử dụng:
                             <span className="text-detail" style={{ marginLeft: '29px' }}>
-                                18:00 - 07/11/2021
+                                {capSoDetail.HanSuDung}
                             </span>
                         </span>
                     </div>

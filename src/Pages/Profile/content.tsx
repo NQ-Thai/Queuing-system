@@ -98,6 +98,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder={userInfo?.TenNguoiDung || ''}
                                         style={{
                                             width: '384px',
@@ -126,6 +127,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder="0767375921"
                                         style={{
                                             width: '384px',
@@ -154,6 +156,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder={userInfo?.Email || ''}
                                         style={{
                                             width: '384px',
@@ -184,6 +187,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder={userInfo?.TenDangNhap || ''}
                                         style={{
                                             width: '384px',
@@ -212,6 +216,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder={userInfo?.MatKhau || ''}
                                         style={{
                                             width: '384px',
@@ -240,6 +245,7 @@ function UserInFormation() {
                                     }}
                                 >
                                     <Input
+                                        disabled
                                         placeholder={userInfo?.VaiTro || ''}
                                         style={{
                                             width: '384px',

@@ -1,34 +1,34 @@
 import { Layout } from 'antd';
-import { useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { HiPencil } from 'react-icons/hi';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchData } from '../../lib/User/UserReducer';
-import { AppDispatch, RootState } from '../../lib/store';
+import { Link, useParams } from 'react-router-dom';
+import { ThietBi } from '../../lib/Type/ThietBi';
+import { thietbiCollection } from '../../lib/controller';
 
 const { Content } = Layout;
 
 function ChiTietContent() {
-    // const { id } = useParams();
-    // const [thietbi, setThietbi] = useState<ThietBi | undefined>();
-    // const dispatch = useDispatch();
-    // const selectedThietBi = useSelector((state: RootState) => state.Thietbi.thietbi);
-
-    // useEffect(() => {
-    //     const data = selectedThietBi.find((item) => item.key === id);
-    //     setThietbi(data);
-    //     dispatch(fetchData() as any);
-    // }, [selectedThietBi, dispatch, id]);
-
-    const dispatch: AppDispatch = useDispatch();
-
-    const users = useSelector((state: RootState) => state.User.user);
+    const { id } = useParams();
+    const [thietBiDetail, setThietBiDetail] = useState<ThietBi | null>(null);
 
     useEffect(() => {
-        dispatch(fetchData());
-    }, [dispatch]);
+        const fetchThietBiDetail = async () => {
+            const docRef = doc(thietbiCollection, id);
+            const docSnap = await getDoc(docRef);
 
-    const userInfo = users.length > 0 ? users[0] : null;
+            if (docSnap.exists()) {
+                const data = docSnap.data() as ThietBi;
+                setThietBiDetail(data);
+            }
+        };
+
+        fetchThietBiDetail();
+    }, [id]);
+
+    if (!thietBiDetail) {
+        return <div></div>;
+    }
 
     return (
         <Content
@@ -73,7 +73,7 @@ function ChiTietContent() {
                                     >
                                         Mã thiết bị:{' '}
                                         <span className="text-detail" style={{ marginLeft: '43px', font: 'Nunito' }}>
-                                            KIO_01
+                                            {thietBiDetail.MaThietBi}
                                         </span>
                                     </span>
                                 </div>
@@ -87,7 +87,7 @@ function ChiTietContent() {
                                     >
                                         Tên thiết bị:{' '}
                                         <span className="text-detail" style={{ marginLeft: '39px' }}>
-                                            Kiosk
+                                            {thietBiDetail.TenThietBi}
                                         </span>
                                     </span>
                                 </div>
@@ -101,14 +101,14 @@ function ChiTietContent() {
                                     >
                                         Địa chỉ IP:{' '}
                                         <span className="text-detail" style={{ marginLeft: '51px' }}>
-                                            192.168.1.10
+                                            {thietBiDetail.DiaChiIP}
                                         </span>
                                     </span>
                                 </div>
                             </div>
                             {/* 2 */}
                             <div style={{ flex: 1, display: 'inline', marginLeft: '250px' }}>
-                                <div style={{ marginBottom: '16px' }}>
+                                <div style={{ marginBottom: '16px', width: '300px' }}>
                                     <span
                                         style={{
                                             font: 'Nunito',
@@ -117,7 +117,7 @@ function ChiTietContent() {
                                     >
                                         Loại thiết bị:{' '}
                                         <span className="text-detail" style={{ marginLeft: '69px' }}>
-                                            Kiosk
+                                            {thietBiDetail.LoaiThietBi}
                                         </span>
                                     </span>
                                 </div>
@@ -131,7 +131,7 @@ function ChiTietContent() {
                                     >
                                         Tên đăng nhập:{' '}
                                         <span className="text-detail" style={{ marginLeft: '46px' }}>
-                                            {userInfo?.TenDangNhap || ''}
+                                            {thietBiDetail.TenDangNhap}
                                         </span>
                                     </span>
                                 </div>
@@ -145,7 +145,7 @@ function ChiTietContent() {
                                     >
                                         Mật khẩu:{' '}
                                         <span className="text-detail" style={{ marginLeft: '87px' }}>
-                                            {userInfo?.MatKhau || ''}
+                                            {thietBiDetail.MatKhau}
                                         </span>
                                     </span>
                                 </div>
@@ -169,9 +169,7 @@ function ChiTietContent() {
                                 display: 'inline',
                             }}
                         >
-                            <span className="text-detail">
-                                Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt, Khám tai mũi họng, Khám hô hấp, Khám tổng quát
-                            </span>
+                            <span className="text-detail">{thietBiDetail.DichVu}</span>
                         </div>
                     </div>
                 </div>

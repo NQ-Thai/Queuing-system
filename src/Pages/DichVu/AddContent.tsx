@@ -1,7 +1,9 @@
-import { Button, Checkbox, Input, Layout } from 'antd';
+import { Button, Checkbox, Input, Layout, message } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import TextArea from 'antd/es/input/TextArea';
+import { addDoc, collection } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { firestore } from '../../lib/Firebase';
 
 const { Content } = Layout;
 
@@ -16,8 +18,30 @@ function AddContent() {
         navigate('/dichvu');
     };
 
-    const handleContinue = () => {
-        navigate('/dichvu');
+    const handleSave = async () => {
+        const maDichVuInput = document.getElementById('maDichVu') as HTMLInputElement;
+        const maDichVu = maDichVuInput.value;
+        const tenDichVuInput = document.getElementById('tenDichVu') as HTMLInputElement;
+        const tenDichVu = tenDichVuInput.value;
+        const moTaInput = document.getElementById('moTa') as HTMLInputElement;
+        const moTa = moTaInput.value;
+
+        if (!maDichVu || !tenDichVu || !moTa) {
+            message.error('Vui lòng nhập đầy đủ thông tin.');
+            return;
+        }
+        try {
+            await addDoc(collection(firestore, 'dichvu'), {
+                MaDichVu: maDichVu,
+                TenDichVu: tenDichVu,
+                MoTa: moTa,
+                TrangThaiHoatDong: 'Hoạt động',
+            });
+
+            navigate('/dichvu');
+        } catch (error) {
+            message.error('Đã xảy ra lỗi khi thêm thiết bị.');
+        }
     };
     return (
         <Content
@@ -70,6 +94,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="maDichVu"
                                         placeholder="Nhập mã dịch vụ"
                                         style={{
                                             width: '540px',
@@ -98,6 +123,7 @@ function AddContent() {
                                     }}
                                 >
                                     <Input
+                                        id="tenDichVu"
                                         placeholder="Nhập tên dịch vụ"
                                         style={{
                                             width: '540px',
@@ -120,17 +146,11 @@ function AddContent() {
                                     }}
                                 >
                                     <div style={{ display: 'inline-block', font: 'Nunito' }}>
-                                        <span
-                                            className="text-add-dichvu"
-                                            style={{ display: 'block' }}
-                                        >
+                                        <span className="text-add-dichvu" style={{ display: 'block' }}>
                                             Quy tắc cấp số
                                         </span>
                                         <div style={{ margin: '5px 0 0 24px' }}>
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Tăng tự động từ:</span>
                                             <div
                                                 style={{
@@ -155,10 +175,7 @@ function AddContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Prefix:</span>
                                             <div
                                                 style={{
@@ -172,10 +189,7 @@ function AddContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Surfix:</span>
                                             <div
                                                 style={{
@@ -189,10 +203,7 @@ function AddContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Reset mỗi ngày</span>
                                         </div>
                                     </div>
@@ -206,8 +217,7 @@ function AddContent() {
                                     }}
                                     className="text-add-required"
                                 >
-                                    <span style={{ color: 'red' }}>*</span> Là trường thông tin bắt
-                                    buộc
+                                    <span style={{ color: 'red' }}>*</span> Là trường thông tin bắt buộc
                                 </span>
                             </div>
                         </div>
@@ -230,7 +240,7 @@ function AddContent() {
                                         display: 'inline',
                                     }}
                                 >
-                                    <TextArea rows={6} placeholder="Mô tả dịch vụ" maxLength={6} />
+                                    <TextArea rows={6} placeholder="Mô tả dịch vụ" id="moTa" />
                                 </div>
                             </div>
 
@@ -277,7 +287,7 @@ function AddContent() {
                         width: '140px',
                         marginLeft: '24px',
                     }}
-                    onClick={handleContinue}
+                    onClick={handleSave}
                 >
                     <span className="text-button-login">Thêm dịch vụ</span>
                 </Button>

@@ -1,20 +1,14 @@
-import {
-    Button,
-    DatePicker,
-    DatePickerProps,
-    Dropdown,
-    Input,
-    Layout,
-    Menu,
-    MenuProps,
-    message,
-} from 'antd';
+import { Button, DatePicker, DatePickerProps, Dropdown, Input, Layout, Menu, MenuProps, message } from 'antd';
 
 import { CalendarOutlined, CaretDownOutlined } from '@ant-design/icons';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { HiPencil } from 'react-icons/hi';
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { DichVu } from '../../lib/Type/DichVu';
+import { dichvuCollection } from '../../lib/controller';
 import TableDetailDichVu from './DetailTable';
 import SearchDichVu from './Search';
 
@@ -59,6 +53,26 @@ const menuPropsDichVu = {
 const { Content } = Layout;
 
 function DetailContentDichVu() {
+    const { id } = useParams();
+    const [dichVuDetail, setDichVuDetail] = useState<DichVu | null>(null);
+
+    useEffect(() => {
+        const fetchDichVuDetail = async () => {
+            const docRef = doc(dichvuCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as DichVu;
+                setDichVuDetail(data);
+            }
+        };
+
+        fetchDichVuDetail();
+    }, [id]);
+
+    if (!dichVuDetail) {
+        return <div></div>;
+    }
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex', marginTop: '24px' }}>
@@ -90,9 +104,7 @@ function DetailContentDichVu() {
                                     flexDirection: 'row',
                                 }}
                             >
-                                <div
-                                    style={{ flex: 1, display: 'inline', margin: '0 24px 30px 0' }}
-                                >
+                                <div style={{ flex: 1, display: 'inline', margin: '0 24px 30px 0' }}>
                                     <div style={{ marginBottom: '16px' }}>
                                         <span
                                             style={{
@@ -101,11 +113,8 @@ function DetailContentDichVu() {
                                             className="text-change-input"
                                         >
                                             Mã dịch vụ:
-                                            <span
-                                                className="text-detail"
-                                                style={{ marginLeft: '27px', font: 'Nunito' }}
-                                            >
-                                                201
+                                            <span className="text-detail" style={{ marginLeft: '27px', font: 'Nunito' }}>
+                                                {dichVuDetail.MaDichVu}
                                             </span>
                                         </span>
                                     </div>
@@ -118,11 +127,8 @@ function DetailContentDichVu() {
                                             className="text-change-input"
                                         >
                                             Tên dịch vụ:{' '}
-                                            <span
-                                                className="text-detail"
-                                                style={{ marginLeft: '22px' }}
-                                            >
-                                                Khám tim mạch
+                                            <span className="text-detail" style={{ marginLeft: '22px' }}>
+                                                {dichVuDetail.TenDichVu}
                                             </span>
                                         </span>
                                     </div>
@@ -135,11 +141,8 @@ function DetailContentDichVu() {
                                             className="text-change-input"
                                         >
                                             Mô tả:
-                                            <span
-                                                className="text-detail"
-                                                style={{ marginLeft: '64px' }}
-                                            >
-                                                Chuyên các bệnh lý về tim
+                                            <span className="text-detail" style={{ marginLeft: '64px' }}>
+                                                {dichVuDetail.MoTa}
                                             </span>
                                         </span>
                                     </div>
@@ -160,13 +163,8 @@ function DetailContentDichVu() {
                                     flexDirection: 'row',
                                 }}
                             >
-                                <div
-                                    style={{ flex: 1, display: 'inline', margin: '0 24px 30px 0' }}
-                                >
-                                    <span
-                                        style={{ font: 'Nunito' }}
-                                        className="text-checkbox-detail"
-                                    >
+                                <div style={{ flex: 1, display: 'inline', margin: '0 24px 30px 0' }}>
+                                    <span style={{ font: 'Nunito' }} className="text-checkbox-detail">
                                         Tăng tự động:
                                     </span>
                                     <div
@@ -191,10 +189,7 @@ function DetailContentDichVu() {
                                         <Input value={'9999'}></Input>
                                     </div>
 
-                                    <span
-                                        style={{ font: 'Nunito' }}
-                                        className="text-checkbox-detail"
-                                    >
+                                    <span style={{ font: 'Nunito' }} className="text-checkbox-detail">
                                         Prefix:
                                     </span>
                                     <div
@@ -265,9 +260,7 @@ function DetailContentDichVu() {
                                         overlay={
                                             <Menu onClick={handleMenuClick}>
                                                 {menuPropsDichVu.itemsDichVu.map((item) => (
-                                                    <Menu.Item key={item.key}>
-                                                        {item.label}
-                                                    </Menu.Item>
+                                                    <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                                 ))}
                                             </Menu>
                                         }
@@ -304,11 +297,7 @@ function DetailContentDichVu() {
                                 </span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <DatePicker
-                                    suffixIcon={<CalendarOutlined />}
-                                    style={{ height: '44px', width: '130px' }}
-                                    onChange={onChange}
-                                />
+                                <DatePicker suffixIcon={<CalendarOutlined />} style={{ height: '44px', width: '130px' }} onChange={onChange} />
                                 <span style={{ margin: '0 4px 0 4px' }}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -321,10 +310,7 @@ function DetailContentDichVu() {
                                         <path d="M3 0L10 5L3 10V0Z" fill="currentColor" />
                                     </svg>
                                 </span>
-                                <DatePicker
-                                    style={{ height: '44px', width: '130px' }}
-                                    onChange={onChange}
-                                />
+                                <DatePicker style={{ height: '44px', width: '130px' }} onChange={onChange} />
                             </div>
                         </div>
 
@@ -348,10 +334,7 @@ function DetailContentDichVu() {
                         </div>
                     </div>
                     <div style={{ alignItems: 'flex-start' }}>
-                        <div
-                            id="table"
-                            style={{ display: 'inline-block', margin: '0 30px 0 20px' }}
-                        >
+                        <div id="table" style={{ display: 'inline-block', margin: '0 30px 0 20px' }}>
                             <TableDetailDichVu />
                         </div>
                     </div>
@@ -366,7 +349,7 @@ function DetailContentDichVu() {
                         width: '60px',
                     }}
                 >
-                    <Link to="/capnhatdichvu">
+                    <Link to="/capnhatdichvu/:id">
                         <div
                             id="button"
                             style={{

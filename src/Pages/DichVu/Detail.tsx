@@ -1,11 +1,23 @@
 import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
-import avata from '../../assets/images/avata.jpg';
 import { iconBell } from '../../assets/svg/svg';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../../lib/User/UserReducer';
+import { AppDispatch, RootState } from '../../lib/store';
 import DetailContentDichVu from './DetailContent';
 
 function DetailDichVu() {
+    const dispatch: AppDispatch = useDispatch();
+
+    const users = useSelector((state: RootState) => state.User.user);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const userInfo = users.length > 0 ? users[0] : null;
     return (
         <Layout>
             <Layout>
@@ -23,17 +35,12 @@ function DetailDichVu() {
                                 Dịch vụ&nbsp;&nbsp;&gt;&nbsp;&nbsp;
                             </span>
                             <Link to={'/dichvu'}>
-                                <span className="text-first-head">
-                                    Danh sách dịch vụ&nbsp;&nbsp;&gt;
-                                </span>
+                                <span className="text-first-head">Danh sách dịch vụ&nbsp;&nbsp;&gt;</span>
                             </Link>
 
                             <span className="text-add-header-content">&nbsp;&nbsp;Chi tiết</span>
                         </span>
-                        <div
-                            className="icon-wrapper-dichvu-detail"
-                            style={{ display: 'inline-block', verticalAlign: 'middle' }}
-                        >
+                        <div className="icon-wrapper-dichvu-detail" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                             {iconBell}
                         </div>
                         <Link to="/profile" style={{ display: 'flex', alignItems: 'center' }}>
@@ -46,25 +53,15 @@ function DetailDichVu() {
                                     marginRight: '7.5px',
                                 }}
                             >
-                                <img
-                                    src={avata}
-                                    alt=""
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
+                                <img src={userInfo?.Avata || ''} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
 
                             <div style={{ display: 'inline-block', textAlign: 'left' }}>
-                                <span
-                                    className="text-hello"
-                                    style={{ font: 'Nunito', display: 'block' }}
-                                >
+                                <span className="text-hello" style={{ font: 'Nunito', display: 'block' }}>
                                     Xin chào
                                 </span>
-                                <span
-                                    className="text-name-right"
-                                    style={{ font: 'Nunito', display: 'block' }}
-                                >
-                                    Da Trắng Tóc Xù
+                                <span className="text-name-right" style={{ font: 'Nunito', display: 'block' }}>
+                                    {userInfo?.TenNguoiDung || ''}
                                 </span>
                             </div>
                         </Link>

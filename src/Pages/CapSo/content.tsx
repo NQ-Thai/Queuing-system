@@ -1,15 +1,7 @@
-import {
-    Button,
-    DatePicker,
-    DatePickerProps,
-    Dropdown,
-    Layout,
-    Menu,
-    MenuProps,
-    message,
-} from 'antd';
+import { Button, DatePicker, DatePickerProps, Dropdown, Layout, Menu, MenuProps, message } from 'antd';
 
 import { CalendarOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchCapSo from './Search';
 import TableCapSo from './Table';
@@ -22,95 +14,100 @@ type MenuItemType = {
 const itemsDichVu: MenuItemType[] = [
     {
         label: 'Tất cả',
-        key: '1',
+        key: 'Tất cả',
     },
     {
         label: 'Khám sản - Phụ khoa',
-        key: '2',
+        key: 'Khám sản - Phụ khoa',
     },
     {
         label: 'Khám răng hàm mặt',
-        key: '3',
+        key: 'Khám răng hàm mặt',
     },
     {
         label: 'Khám tai mũi họng',
-        key: '4',
+        key: 'Khám tai mũi họng',
     },
     {
         label: 'Khám tim mạch',
-        key: '5',
+        key: 'Khám tim mạch',
     },
     {
         label: 'Khám hô hấp',
-        key: '6',
+        key: 'Khám hô hấp',
     },
     {
         label: 'Khám tổng quát',
-        key: '7',
+        key: 'Khám tổng quát',
     },
 ];
 
 const itemsTinhTrang: MenuItemType[] = [
     {
         label: 'Tất cả',
-        key: '1',
+        key: 'Tất cả',
     },
     {
         label: 'Đang chờ',
-        key: '2',
+        key: 'Đang chờ',
     },
     {
         label: 'Đã sử dụng',
-        key: '3',
+        key: 'Đã sử dụng',
     },
     {
         label: 'Bỏ qua',
-        key: '4',
+        key: 'Bỏ qua',
     },
 ];
 
 const itemsNguonCap: MenuItemType[] = [
     {
         label: 'Tất cả',
-        key: '1',
+        key: 'Tất cả',
     },
     {
-        label: 'Kiosk',
-        key: '2',
+        label: '',
+        key: 'Kiosk',
     },
     {
         label: 'Hệ thống',
-        key: '3',
+        key: 'Hệ thống',
     },
 ];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsHoatDong = {
-    itemsDichVu,
-    onClick: handleMenuClick,
-};
-
-const menuPropsKetNoi = {
-    itemsTinhTrang,
-    onClick: handleMenuClick,
-};
-
-const menuPropsNguonCap = {
-    itemsNguonCap,
-    onClick: handleMenuClick,
-};
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-};
 
 const { Content } = Layout;
 
 function ContentCapSo() {
+    const [selectedTrangThaiDichVu, setSelectedTrangThaiDichVu] = useState<string | null>(null);
+    const handleMenuClick: MenuProps['onClick'] = (e) => {
+        message.info('Click on menu item.');
+        console.log('click', e);
+    };
+
+    const handleDichVu: MenuProps['onClick'] = (e) => {
+        setSelectedTrangThaiDichVu(e.key);
+    };
+
+    const menuPropsdichVu = {
+        itemsDichVu,
+        onClick: handleDichVu,
+    };
+
+    const menuPropsKetNoi = {
+        itemsTinhTrang,
+        onClick: handleMenuClick,
+    };
+
+    const menuPropsNguonCap = {
+        itemsNguonCap,
+        onClick: handleMenuClick,
+    };
+
+    const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+        console.log(date, dateString);
+    };
+
     return (
         <Content style={{ margin: '0 0 0 24px', borderRadius: '12', font: 'Nunito' }}>
             <div style={{ display: 'flex' }}>
@@ -130,8 +127,8 @@ function ContentCapSo() {
                         >
                             <Dropdown
                                 overlay={
-                                    <Menu onClick={handleMenuClick}>
-                                        {menuPropsHoatDong.itemsDichVu.map((item) => (
+                                    <Menu onClick={handleDichVu}>
+                                        {menuPropsdichVu.itemsDichVu.map((item) => (
                                             <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                         ))}
                                     </Menu>
@@ -147,7 +144,9 @@ function ContentCapSo() {
                                         alignItems: 'center',
                                     }}
                                 >
-                                    <span style={{ marginLeft: '10px' }}>Tất cả</span>
+                                    <span style={{ marginLeft: '10px' }}>
+                                        {selectedTrangThaiDichVu ? itemsDichVu.find((item) => item.key === selectedTrangThaiDichVu)?.label : 'Tất cả'}
+                                    </span>
                                     <CaretDownOutlined
                                         style={{
                                             color: '#FF7506',
@@ -265,11 +264,7 @@ function ContentCapSo() {
                         </span>
                     </div>
                     <div>
-                        <DatePicker
-                            suffixIcon={<CalendarOutlined />}
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
+                        <DatePicker suffixIcon={<CalendarOutlined />} style={{ height: '44px', width: '150px' }} onChange={onChange} />
                         <span style={{ margin: '0 4px 0 4px' }}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -282,10 +277,7 @@ function ContentCapSo() {
                                 <path d="M3 0L10 5L3 10V0Z" fill="currentColor" />
                             </svg>
                         </span>
-                        <DatePicker
-                            style={{ height: '44px', width: '150px' }}
-                            onChange={onChange}
-                        />
+                        <DatePicker style={{ height: '44px', width: '150px' }} onChange={onChange} />
                     </div>
                 </div>
 
@@ -311,7 +303,7 @@ function ContentCapSo() {
 
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div id="table" style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableCapSo />
+                    <TableCapSo selectedTrangThaiDichVu={selectedTrangThaiDichVu} />
                 </div>
                 <Link to="/themcapso">
                     <div
@@ -339,9 +331,7 @@ function ContentCapSo() {
                                 margin: '0 0 10px 15px',
                             }}
                         >
-                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>
-                                +
-                            </span>
+                            <span style={{ color: 'white', fontSize: '35px', marginBottom: '7px' }}>+</span>
                         </div>
 
                         <span className="text-add-button" style={{ font: 'Nunito' }}>

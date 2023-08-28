@@ -1,7 +1,11 @@
-import { Button, Checkbox, Input, Layout } from 'antd';
+import { Button, Checkbox, Input, Layout, message } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import TextArea from 'antd/es/input/TextArea';
-import { useNavigate } from 'react-router-dom';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DichVu } from '../../lib/Type/DichVu';
+import { dichvuCollection } from '../../lib/controller';
 
 const { Content } = Layout;
 
@@ -10,15 +14,76 @@ const onChange = (e: CheckboxChangeEvent) => {
 };
 
 function UpdateContent() {
+    const [dichVuUpdate, setDichVuUpdate] = useState<DichVu | null>(null);
+    const [maDichVu, setMaDichVu] = useState('');
+    const [tenDichVu, setTenDichVu] = useState('');
+    const [moTa, setMoTa] = useState('');
+
     const navigate = useNavigate();
 
     const handleCancel = () => {
-        navigate('/chitietdichvu');
-    };
-
-    const handleContinue = () => {
         navigate('/dichvu');
     };
+
+    const handleSave = async () => {
+        if (!dichVuUpdate) {
+            return;
+        }
+
+        try {
+            const docRef = doc(dichvuCollection, id);
+
+            const updatedData: Partial<DichVu> = {
+                MaDichVu: maDichVu,
+                TenDichVu: tenDichVu,
+                MoTa: moTa,
+            };
+
+            await updateDoc(docRef, updatedData);
+
+            navigate('/dichvu');
+        } catch (error) {
+            message.error('Đã xảy ra lỗi khi cập nhật dịch vụ.');
+        }
+    };
+    const { id } = useParams();
+
+    useEffect(() => {
+        const fetchDichVuUpdate = async () => {
+            const docRef = doc(dichvuCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as DichVu;
+                setDichVuUpdate(data);
+                setMaDichVu(data.MaDichVu || '');
+                setTenDichVu(data.TenDichVu || '');
+                setMoTa(data.MoTa || '');
+            }
+        };
+
+        fetchDichVuUpdate();
+    }, [id]);
+
+    const [dichvuUpdate, setDichvuUpdate] = useState<DichVu | null>(null);
+
+    useEffect(() => {
+        const fetchdichvuUpdate = async () => {
+            const docRef = doc(dichvuCollection, id);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data() as DichVu;
+                setDichvuUpdate(data);
+            }
+        };
+
+        fetchdichvuUpdate();
+    }, [id]);
+
+    if (!dichvuUpdate) {
+        return <div></div>;
+    }
     return (
         <Content
             style={{
@@ -70,7 +135,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'201'}
+                                        defaultValue={dichvuUpdate.MaDichVu}
+                                        onChange={(e) => setMaDichVu(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -98,7 +164,8 @@ function UpdateContent() {
                                     }}
                                 >
                                     <Input
-                                        value={'Khám tim mạch'}
+                                        defaultValue={dichvuUpdate.TenDichVu}
+                                        onChange={(e) => setTenDichVu(e.target.value)}
                                         style={{
                                             width: '540px',
                                             height: '44px',
@@ -120,17 +187,11 @@ function UpdateContent() {
                                     }}
                                 >
                                     <div style={{ display: 'inline-block', font: 'Nunito' }}>
-                                        <span
-                                            className="text-add-dichvu"
-                                            style={{ display: 'block' }}
-                                        >
+                                        <span className="text-add-dichvu" style={{ display: 'block' }}>
                                             Quy tắc cấp số
                                         </span>
                                         <div style={{ margin: '5px 0 0 24px' }}>
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Tăng tự động từ:</span>
                                             <div
                                                 style={{
@@ -155,10 +216,7 @@ function UpdateContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Prefix:</span>
                                             <div
                                                 style={{
@@ -172,10 +230,7 @@ function UpdateContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Surfix:</span>
                                             <div
                                                 style={{
@@ -189,10 +244,7 @@ function UpdateContent() {
                                             </div>
 
                                             <br />
-                                            <Checkbox
-                                                style={{ font: 'Nunito' }}
-                                                onChange={onChange}
-                                            ></Checkbox>
+                                            <Checkbox style={{ font: 'Nunito' }} onChange={onChange}></Checkbox>
                                             <span className="text-checkbox">Reset mỗi ngày</span>
                                         </div>
                                     </div>
@@ -206,8 +258,7 @@ function UpdateContent() {
                                     }}
                                     className="text-add-required"
                                 >
-                                    <span style={{ color: 'red' }}>*</span> Là trường thông tin bắt
-                                    buộc
+                                    <span style={{ color: 'red' }}>*</span> Là trường thông tin bắt buộc
                                 </span>
                             </div>
                         </div>
@@ -230,7 +281,12 @@ function UpdateContent() {
                                         display: 'inline',
                                     }}
                                 >
-                                    <TextArea rows={6} placeholder="Mô tả dịch vụ" maxLength={6} />
+                                    <TextArea
+                                        defaultValue={dichvuUpdate.MoTa}
+                                        onChange={(e) => setMoTa(e.target.value)}
+                                        rows={6}
+                                        placeholder="Mô tả dịch vụ"
+                                    />
                                 </div>
                             </div>
 
@@ -277,7 +333,7 @@ function UpdateContent() {
                         width: '140px',
                         marginLeft: '24px',
                     }}
-                    onClick={handleContinue}
+                    onClick={handleSave}
                 >
                     <span className="text-button-login">Cập nhật</span>
                 </Button>
