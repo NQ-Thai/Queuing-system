@@ -1,26 +1,29 @@
 import { Button, Input } from 'antd';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo3 from '../../assets/images/Frame.png';
 import logo from '../../assets/images/Logo alta.png';
+import { auth } from '../../lib/Firebase';
 
 function AuthEmail() {
     const [email, setEmail] = useState('');
-    const auth = getAuth();
     const navigate = useNavigate();
 
-    const triggerResetEmail = async () => {
-        await sendPasswordResetEmail(auth, email);
-        console.log('Password reset email sent');
+    const handleContinue = async () => {
+        try {
+            const actionCodeSettings = {
+                url: 'http://localhost:3000/resetpass',
+            };
+            await sendPasswordResetEmail(auth, email, actionCodeSettings);
+            navigate(`/resetpass?email=${email}`);
+        } catch (error) {
+            console.error('Lỗi khi gửi email xác thực:', error);
+        }
     };
 
     const handleCancel = () => {
         navigate('/');
-    };
-
-    const handleContinue = () => {
-        navigate('/resetpass', { state: { email } });
     };
 
     return (
@@ -95,7 +98,7 @@ function AuthEmail() {
                             width: '140px',
                             marginLeft: '24px',
                         }}
-                        onClick={triggerResetEmail}
+                        onClick={handleContinue}
                     >
                         <span className="text-button-login">Tiếp tục</span>
                     </Button>

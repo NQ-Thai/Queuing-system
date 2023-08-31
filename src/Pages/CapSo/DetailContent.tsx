@@ -188,7 +188,7 @@ function DetailContent() {
                         >
                             Hạn sử dụng:
                             <span className="text-detail" style={{ marginLeft: '29px' }}>
-                                {capSoDetail.HanSuDung}
+                                {capSoDetail.ThoiGianCap}
                             </span>
                         </span>
                     </div>

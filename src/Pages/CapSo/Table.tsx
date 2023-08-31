@@ -13,8 +13,8 @@ interface DataType {
     STT: string;
     tenKhachHang: string;
     tenDichVu: string;
-    thoiGianCap: string;
-    HanSuDung: string;
+    thoiGianCap: Date;
+    HanSuDung: Date;
     trangThai: string;
     nguonCap: string;
 }
@@ -88,7 +88,7 @@ const TableCapSo: React.FC<{ selectedTrangThaiDichVu: string | null }> = ({ sele
     const columns: ColumnsType<CapSo> = [
         {
             title: 'STT',
-            dataIndex: 'STT',
+            dataIndex: 'key',
             key: 'STT',
         },
         {
@@ -105,11 +105,13 @@ const TableCapSo: React.FC<{ selectedTrangThaiDichVu: string | null }> = ({ sele
             title: 'Thời gian cấp',
             key: 'ThoiGianCap',
             dataIndex: 'ThoiGianCap',
+            // render: (date: Date) => format(date, 'HH:mm dd/MM/yyyy'),
         },
         {
             title: 'Hạn sử dụng',
             key: 'HanSuDung',
             dataIndex: 'HanSuDung',
+            // render: (date: Date) => format(date, 'HH:mm dd/MM/yyyy'),
         },
         {
             title: 'Trạng thái',
@@ -139,8 +141,9 @@ const TableCapSo: React.FC<{ selectedTrangThaiDichVu: string | null }> = ({ sele
     const [filteredData, setFilteredData] = useState<CapSo[]>(capso);
 
     useEffect(() => {
-        setFilteredData(capso);
-    }, [capso]);
+        const newFilteredData = capso.filter((capso) => checkTrangThaidichVu(capso.TenDichVu, selectedTrangThaiDichVu));
+        setFilteredData(newFilteredData.map((capso, index) => ({ ...capso, key: (index + 1).toString() })));
+    }, [capso, selectedTrangThaiDichVu]);
 
     const checkTrangThaidichVu = (trangThaiDichVu: string | undefined, checkTrangThaidichVu: string | null) => {
         return (
@@ -162,7 +165,10 @@ const TableCapSo: React.FC<{ selectedTrangThaiDichVu: string | null }> = ({ sele
                         return {
                             id: doc.id,
                             STT: `${index + 1}`,
+                            STTS: data.STTS ?? 0,
                             ...data,
+                            // ThoiGianCap: data.ThoiGianCap ? data.ThoiGianCap.toDate() : null,
+                            // HanSuDung: data.HanSuDung ? data.HanSuDung.toDate() : null,
                         };
                     }),
                 );

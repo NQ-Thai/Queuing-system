@@ -1,31 +1,42 @@
 import { Button, Input } from 'antd';
+import { updatePassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import logo3 from '../../assets/images/Frame.png';
 import logo from '../../assets/images/Logo alta.png';
+import { auth } from '../../lib/Firebase';
 
 function ResetPass() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const { email } = location.state || {};
+
+    const emailFromUrl = new URLSearchParams(location.search).get('email');
+
+    if (!emailFromUrl) {
+        navigate('/');
+    }
 
     const handleConfirm = async () => {
-        // try {
-        //     if (password === confirmPassword && email) {
-        //         // Đặt lại mật khẩu thông qua email
-        //         await auth.sendPasswordResetEmail(email);
-        //         navigate('/');
-        //     } else {
-        //         console.error('Password and confirm password do not match, or email is missing.');
-        //     }
-        // } catch (error) {
-        //     console.error('Error confirming password reset:', error);
-        //     // Handle error (e.g., show error message to the user)
-        // }
+        if (password === confirmPassword && emailFromUrl) {
+            try {
+                const user = auth.currentUser;
+                if (user && user.email === emailFromUrl) {
+                    await updatePassword(user, password);
+                    console.log('Mật khẩu đã được cập nhật thành công.');
+                    navigate('/');
+                } else {
+                    console.error('Không tìm thấy thông tin người dùng hoặc email không khớp.');
+                }
+            } catch (error) {
+                const errorMessage = (error as Error).message;
+                console.error('Lỗi khi thay đổi mật khẩu:', errorMessage);
+            }
+        } else {
+            console.error('Mật khẩu và xác nhận mật khẩu không khớp.');
+        }
     };
-
     return (
         <div className="container">
             <div className="left">

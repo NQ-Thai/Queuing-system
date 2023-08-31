@@ -1,7 +1,10 @@
 import { CaretDownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Layout, Menu, MenuProps, message } from 'antd';
+import { format } from 'date-fns';
+import { addDoc, collection } from 'firebase/firestore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { firestore } from '../../lib/Firebase';
 import ModalCapSo from './Modal';
 
 type MenuItemType = {
@@ -12,47 +15,89 @@ type MenuItemType = {
 const itemsDichVu: MenuItemType[] = [
     {
         label: 'Tất cả',
-        key: '1',
+        key: 'Tất cả',
     },
     {
         label: 'Khám sản - Phụ khoa',
-        key: '2',
+        key: 'Khám sản - Phụ khoa',
     },
     {
         label: 'Khám răng hàm mặt',
-        key: '3',
+        key: 'Khám răng hàm mặt',
     },
     {
         label: 'Khám tai mũi họng',
-        key: '4',
+        key: 'Khám tai mũi họng',
     },
     {
         label: 'Khám tim mạch',
-        key: '5',
+        key: 'Khám tim mạch',
     },
     {
         label: 'Khám hô hấp',
-        key: '6',
+        key: 'Khám hô hấp',
     },
     {
         label: 'Khám tổng quát',
-        key: '7',
+        key: 'Khám tổng quát',
     },
 ];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-};
-
-const menuPropsDichVu = {
-    itemsDichVu,
-    onClick: handleMenuClick,
-};
-
 const { Content } = Layout;
 
 function AddCapSoContent() {
+    const [selectedLoaiDichVu, setSelectedLoaiDichVu] = useState('');
+    const handleMenuClick: MenuProps['onClick'] = (e) => {
+        const selectedKey = e.key as string;
+        const selectedMenuItem = itemsDichVu.find((item) => item.key === selectedKey);
+        if (selectedMenuItem) {
+            setSelectedLoaiDichVu(selectedMenuItem.label);
+        }
+    };
+
+    const menuPropsDichVu = {
+        itemsDichVu,
+        onClick: handleMenuClick,
+    };
+    let currentSTT = 1;
+
+    const handleSave = async () => {
+        if (!selectedLoaiDichVu) {
+            message.error('Vui lòng nhập đầy đủ thông tin.');
+            return;
+        }
+
+        try {
+            const now = new Date();
+            const thoiGianCap = format(now, 'HH:mm dd/MM/yyyy');
+            const hanSuDung = format(now, 'HH:mm dd/MM/yyyy');
+
+            const newSTT = currentSTT.toString();
+            currentSTT++;
+
+            // Thêm dữ liệu vào collection capso
+            const docRef = await addDoc(collection(firestore, 'capso'), {
+                STTBaoCao: '2010004',
+                STT: newSTT,
+                TenKhachHang: 'Nguyễn Quang Thái',
+                TenDichVu: selectedLoaiDichVu,
+                ThoiGianCap: thoiGianCap,
+                HanSuDung: hanSuDung,
+                TrangThai: 'Đang chờ',
+                NguonCap: 'Hệ thống',
+                SDT: '0353803654',
+                Email: 'gamming0165@gmail.com',
+            });
+
+            // Hiển thị Modal
+            setModalVisible(true);
+
+            // Điều hướng sau khi thêm dữ liệu thành công
+            // navigate('/capso');
+        } catch (error) {
+            message.error('Đã xảy ra lỗi khi thêm thiết bị.');
+        }
+    };
+
     const [modalVisible, setModalVisible] = useState(false);
     const navigate = useNavigate();
 
@@ -134,9 +179,7 @@ function AddCapSoContent() {
                                         overlay={
                                             <Menu onClick={handleMenuClick}>
                                                 {menuPropsDichVu.itemsDichVu.map((item) => (
-                                                    <Menu.Item key={item.key}>
-                                                        {item.label}
-                                                    </Menu.Item>
+                                                    <Menu.Item key={item.key}>{item.label}</Menu.Item>
                                                 ))}
                                             </Menu>
                                         }
@@ -152,7 +195,11 @@ function AddCapSoContent() {
                                                 alignItems: 'center',
                                             }}
                                         >
-                                            <span style={{ color: '#A9A9B0' }}>Chọn dịch vụ</span>
+                                            <span style={{ color: '#A9A9B0' }}>
+                                                {selectedLoaiDichVu
+                                                    ? itemsDichVu.find((item) => item.key === selectedLoaiDichVu)?.label
+                                                    : 'Chọn dịch vụ'}
+                                            </span>
                                             <CaretDownOutlined
                                                 style={{
                                                     color: '#FF7506',
@@ -198,7 +245,7 @@ function AddCapSoContent() {
                                 width: '140px',
                                 marginLeft: '24px',
                             }}
-                            onClick={openModal}
+                            onClick={handleSave}
                         >
                             <span className="text-button-login">In số</span>
                         </Button>

@@ -1,12 +1,11 @@
 import { Button, Input } from 'antd';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo2 from '../../assets/images/Group 341.png';
 import logo from '../../assets/images/Logo alta.png';
 import { iconErrorLogin } from '../../assets/svg/svg';
-import { auth } from '../../lib/Firebase';
 
 function Login() {
     const navigate = useNavigate();
@@ -16,9 +15,15 @@ function Login() {
 
     async function handleLogin() {
         try {
-            await signInWithEmailAndPassword(auth, username, password);
-            setLoginError(false);
-            navigate('/dashboard');
+            const authInstance = getAuth();
+            const credentials = await signInWithEmailAndPassword(authInstance, `${username}@gmail.com`, password);
+            const user = credentials.user;
+            if (user) {
+                setLoginError(false);
+                navigate('/dashboard');
+            } else {
+                setLoginError(true);
+            }
         } catch (error) {
             console.error(error);
             setLoginError(true);

@@ -1,5 +1,8 @@
 export interface CapSo {
+    key?: string;
+    STTS: number;
     id?: string;
+    STTBaoCao?: string;
     STT?: string;
     SDT?: string;
     Email?: string;

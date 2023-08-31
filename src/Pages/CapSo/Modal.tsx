@@ -1,5 +1,8 @@
 import { Modal } from 'antd';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../../lib/CapSo/CapSo';
+import { AppDispatch, RootState } from '../../lib/store';
 
 interface NewModalProps {
     visible: boolean;
@@ -7,6 +10,15 @@ interface NewModalProps {
 }
 
 const ModalCapSo: FC<NewModalProps> = ({ visible, onCancel }) => {
+    const dispatch: AppDispatch = useDispatch();
+
+    const capsos = useSelector((state: RootState) => state.CapSo.capsos);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const capsoInfo = capsos.length > 0 ? capsos[0] : null;
     return (
         <div>
             <Modal
@@ -35,12 +47,12 @@ const ModalCapSo: FC<NewModalProps> = ({ visible, onCancel }) => {
                     >
                         <div>
                             <span className="text-time-modal-capso" style={{ font: 'Nunito' }}>
-                                Thời gian cấp: 09:30 11/10/2021
+                                Thời gian cấp: 14:05 31/08/2023
                             </span>
                         </div>
                         <div>
                             <span className="text-time-modal-capso" style={{ font: 'Nunito' }}>
-                                Hạn sử dụng: 17:30 11/10/2021
+                                Hạn sử dụng: 14:05 31/08/2023
                             </span>
                         </div>
                     </div>
@@ -64,7 +76,7 @@ const ModalCapSo: FC<NewModalProps> = ({ visible, onCancel }) => {
                     }}
                 >
                     <span className="number-title-modal-capso" style={{ font: 'Nunito' }}>
-                        2001201
+                        2001204
                     </span>
                 </div>
 
@@ -75,8 +87,8 @@ const ModalCapSo: FC<NewModalProps> = ({ visible, onCancel }) => {
                     }}
                 >
                     <span className="text1-DV-capso" style={{ font: 'Nunito' }}>
-                        DV: Khám răng hàm mặt{' '}
-                        <span className="text2-DV-capso">(tại quầy số 1)</span>
+                        DV: Khám răng hàm mặt
+                        {/* <span className="text2-DV-capso">(tại quầy số 1)</span> */}
                     </span>
                 </div>
             </Modal>

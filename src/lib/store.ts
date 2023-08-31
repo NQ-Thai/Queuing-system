@@ -1,11 +1,13 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
+import CapSoSlice from './CapSo/CapSoSlice';
 import dataSlice from './ThietBi/ThietBiReducer';
 import UserSlice from './User/UserReducer';
 
 const store = configureStore({
     reducer: {
-        Thietbi: dataSlice,
+        ThietBi: dataSlice,
         User: UserSlice,
+        CapSo: CapSoSlice,
     },
 });
 
