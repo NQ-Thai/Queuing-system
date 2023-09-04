@@ -28,7 +28,7 @@ const itemsDichVu: MenuItemType[] = [
 ];
 const { Content } = Layout;
 
-function AddCapSoContent() {
+function AddLevelNContent() {
     const [selectedLoaiDichVu, setSelectedLoaiDichVu] = useState('');
     type NewlyAddedData = {
         STTBaoCao: string;
@@ -123,9 +123,6 @@ function AddCapSoContent() {
             });
 
             setModalVisible(true);
-
-            // Điều hướng sau khi thêm dữ liệu thành công
-            // navigate('/capso');
         } catch (error) {
             message.error('Đã xảy ra lỗi khi thêm thiết bị.');
         }
@@ -136,10 +133,6 @@ function AddCapSoContent() {
 
     const handleCancel = () => {
         navigate('/capso');
-    };
-
-    const openModal = () => {
-        setModalVisible(true);
     };
 
     const closeModal = () => {
@@ -290,4 +283,4 @@ function AddCapSoContent() {
     );
 }
 
-export default AddCapSoContent;
+export default AddLevelNContent;

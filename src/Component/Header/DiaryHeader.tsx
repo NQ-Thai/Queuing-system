@@ -1,15 +1,11 @@
-import { DatePickerProps, Layout } from 'antd';
+import { Layout } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { iconBell } from '../../assets/svg/svg';
 import { fetchData } from '../../lib/User/UserReducer';
 import { AppDispatch, RootState } from '../../lib/store';
-import ContentBaoCao from '../../pages/Diary/Diary';
-
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
-};
+import ContentDiary from '../../pages/Diary/Diary';
 
 function DiaryHeader() {
     const dispatch: AppDispatch = useDispatch();
@@ -59,7 +55,7 @@ function DiaryHeader() {
                         </Link>
                     </div>
                 </div>
-                <ContentBaoCao />
+                <ContentDiary />
             </Layout>
         </Layout>
     );

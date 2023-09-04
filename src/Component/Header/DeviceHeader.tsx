@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { iconBell } from '../../assets/svg/svg';
 import { fetchData } from '../../lib/Device/Device';
 import { AppDispatch, RootState } from '../../lib/store';
-import ContentThietBi from './Detail';
+import ContentDetail from '../../pages/Device/Detail';
 
 function DeviceHeader() {
     const dispatch: AppDispatch = useDispatch();
@@ -60,7 +60,7 @@ function DeviceHeader() {
                         Danh sách thiết bị
                     </span>
                 </div>
-                <ContentThietBi />
+                <ContentDetail />
             </Layout>
         </Layout>
     );

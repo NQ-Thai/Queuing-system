@@ -3,8 +3,8 @@ import { Button, Dropdown, Layout, Menu, MenuProps } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SearchTaiKhoan from './SearchAccount';
-import TableThietBi from './TableAccount';
+import SearchAccount from '../../component/Search/SearchAccount';
+import TableAccount from '../../component/Table/TableAccount';
 
 type MenuItemType = {
     label: string;
@@ -116,7 +116,7 @@ function Account() {
                                 display: 'inline',
                             }}
                         >
-                            <SearchTaiKhoan onSearch={handleSearch} />
+                            <SearchAccount onSearch={handleSearch} />
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ function Account() {
 
             <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <div style={{ display: 'inline-block', marginRight: '30px' }}>
-                    <TableThietBi selectedVaiTro={selectedVaiTro} searchValue={searchValue} />
+                    <TableAccount selectedVaiTro={selectedVaiTro} searchValue={searchValue} />
                 </div>
                 <Link to="/quanlytaikhoan/themtaikhoan">
                     <div

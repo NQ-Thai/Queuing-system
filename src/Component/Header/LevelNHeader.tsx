@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { iconBell } from '../../assets/svg/svg';
 import { fetchData } from '../../lib/User/UserReducer';
 import { AppDispatch, RootState } from '../../lib/store';
-import ContentCapSo from '../../pages/LevelN/LevelN';
+import ContentLevelN from '../../pages/LevelN/LevelN';
 
 function LevelNHeader() {
     const dispatch: AppDispatch = useDispatch();
@@ -60,7 +60,7 @@ function LevelNHeader() {
                         Quản lí cấp số
                     </span>
                 </div>
-                <ContentCapSo />
+                <ContentLevelN />
             </Layout>
         </Layout>
     );

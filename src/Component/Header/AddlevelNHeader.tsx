@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../lib/User/UserReducer';
 import { AppDispatch, RootState } from '../../lib/store';
-import AddContent from '../../pages/LevelN/AddContent';
+import AddLevelNContent from '../../pages/LevelN/AddLevelNContent';
 
 function AddlevelNHeader() {
     const dispatch: AppDispatch = useDispatch();
@@ -72,7 +72,7 @@ function AddlevelNHeader() {
                         Quản lý cấp số
                     </span>
                 </div>
-                <AddContent />
+                <AddLevelNContent />
             </Layout>
         </Layout>
     );
