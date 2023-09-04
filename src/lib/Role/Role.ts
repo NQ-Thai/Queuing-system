@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { collection, getDocs } from 'firebase/firestore';
-import { User } from '../Type/User';
+import { Role } from '../Type/Role';
 import { firestore } from '../firebase';
 
-export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => {
-    const dataRef = collection(firestore, 'user');
+export const fetchData = createAsyncThunk<Role[]>('role/fetchData', async () => {
+    const dataRef = collection(firestore, 'role');
     const snapshot = await getDocs(dataRef);
-    const data: User[] = snapshot.docs.map((doc, index) => {
+    const data: Role[] = snapshot.docs.map((doc, index) => {
         const data = doc.data();
         return {
             id: doc.id,
@@ -17,15 +16,15 @@ export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => 
     });
     return data;
 });
-const UserSlice = createSlice({
-    name: 'user',
-    initialState: { user: [] as User[] },
+const roleSlice = createSlice({
+    name: 'role',
+    initialState: { roles: [] as Role[] },
     reducers: {},
     extraReducers(builder) {
         builder.addCase(fetchData.fulfilled, (state, action) => {
-            state.user = action.payload;
+            state.roles = action.payload;
         });
     },
 });
 
-export default UserSlice.reducer;
+export default roleSlice.reducer;

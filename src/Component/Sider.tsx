@@ -7,7 +7,7 @@ import { TbSettings2 } from 'react-icons/tb';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/Logo alta.png';
 import { iconBaoCao, iconDashboard, iconDichVu } from '../assets/svg/svg';
-import { auth } from '../lib/Firebase';
+import { auth } from '../lib/firebase';
 
 const { Sider } = Layout;
 
@@ -30,32 +30,37 @@ function NavBar() {
 
     let matchingKey: string | null = null;
     if (!shouldShowNavBar) {
+        const currentPath = location.pathname;
+
         const pathToKeyMap: Record<string, string> = {
             '/dashboard': '/dashboard',
             '/thietbi': '/thietbi',
             '/themthietbi': '/thietbi',
-            '/chitietthietbi': '/thietbi',
-            '/capnhatthietbi': '/thietbi',
+            '/chitietthietbi/:id': '/thietbi',
+            '/capnhatthietbi/:id': '/thietbi',
             '/dichvu': '/dichvu',
             '/themdichvu': '/dichvu',
-            '/capnhatdichvu': '/dichvu',
-            '/chitietdichvu': '/dichvu',
+            '/capnhatdichvu/:id': '/dichvu',
+            '/chitietdichvu/:id': '/dichvu',
             '/capso': '/capso',
             '/themcapso': '/capso',
-            '/chitietcapso': '/thietbi',
+            '/chitietcapso/:id': '/capso',
             '/baocao': '/baocao',
             '/caidat': '/caidat',
             '/quanlyvaitro': '/caidat',
-            '/quanlyvaitro/themvaitro': '/caidat',
-            '/quanlyvaitro/capnhatvaitro': '/caidat',
-            '/quanlytaikhoan/capnhat': '/caidat',
-            '/quanlytaikhoan/themtaikhoan': '/caidat',
+            '/quanlyvaitro/themvaitro/:id': '/caidat',
+            '/quanlyvaitro/capnhatvaitro/:id': '/caidat',
+            '/quanlytaikhoan/capnhat/:id': '/caidat',
+            '/quanlytaikhoan/themtaikhoan/:id': '/caidat',
         };
 
-        const currentPath = location.pathname;
-        matchingKey = pathToKeyMap[currentPath] || null;
+        Object.keys(pathToKeyMap).forEach((key) => {
+            const pattern = new RegExp(`^${key.replace(/:\w+/g, '[\\w-]+')}$`);
+            if (pattern.test(currentPath)) {
+                matchingKey = pathToKeyMap[key];
+            }
+        });
     }
-
     useEffect(() => {
         setSelectedMenuKey(matchingKey);
     }, [matchingKey]);

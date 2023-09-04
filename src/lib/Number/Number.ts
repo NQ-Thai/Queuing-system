@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { collection, getDocs } from 'firebase/firestore';
-import { User } from '../Type/User';
+import { NCapSo } from '../Type/NLevel';
 import { firestore } from '../firebase';
 
-export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => {
-    const dataRef = collection(firestore, 'user');
+export const fetchData = createAsyncThunk<NCapSo[]>('ncapso/fetchData', async () => {
+    const dataRef = collection(firestore, 'ncapso');
     const snapshot = await getDocs(dataRef);
-    const data: User[] = snapshot.docs.map((doc, index) => {
+    const data: NCapSo[] = snapshot.docs.map((doc, index) => {
         const data = doc.data();
         return {
             id: doc.id,
@@ -17,15 +16,15 @@ export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => 
     });
     return data;
 });
-const UserSlice = createSlice({
-    name: 'user',
-    initialState: { user: [] as User[] },
+const nlevelSlice = createSlice({
+    name: 'nlevel',
+    initialState: { nlevel: [] as NCapSo[] },
     reducers: {},
     extraReducers(builder) {
         builder.addCase(fetchData.fulfilled, (state, action) => {
-            state.user = action.payload;
+            state.nlevel = action.payload;
         });
     },
 });
 
-export default UserSlice.reducer;
+export default nlevelSlice.reducer;

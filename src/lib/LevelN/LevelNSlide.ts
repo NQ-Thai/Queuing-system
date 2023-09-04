@@ -1,28 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../Type/User';
+import { CapSo } from '../Type/LevelN';
 
-export interface UserState {
-    users: User[];
+export interface CapSoState {
+    capsos: CapSo[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: UserState = {
-    users: [],
+const initialState: CapSoState = {
+    capsos: [],
     loading: false,
     error: null,
 };
 
-const userSlice = createSlice({
-    name: 'User',
+const capsoSlice = createSlice({
+    name: 'Capso',
     initialState,
     reducers: {
         fetchDataStart: (state) => {
             state.loading = true;
             state.error = null;
         },
-        fetchDataSuccess: (state, action: PayloadAction<User[]>) => {
-            state.users = action.payload;
+        fetchDataSuccess: (state, action: PayloadAction<CapSo[]>) => {
+            state.capsos = action.payload;
             state.loading = false;
             state.error = null;
         },
@@ -33,6 +33,6 @@ const userSlice = createSlice({
     },
 });
 
-export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = userSlice.actions;
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = capsoSlice.actions;
 
-export default userSlice.reducer;
+export default capsoSlice.reducer;

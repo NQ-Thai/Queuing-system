@@ -1,5 +1,5 @@
 import { Navigate, RouteProps as ReactRouteProps, Route } from 'react-router-dom';
-import { auth } from '../lib/Firebase';
+import { auth } from '../lib/firebase';
 
 type RequireAuthRouteProps = ReactRouteProps & {
     element: JSX.Element;

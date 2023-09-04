@@ -1,39 +1,40 @@
 import { Layout } from 'antd';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './assets/style/style.css';
-import { requireAuth } from './component/AuthRouter';
+import TaiKhoan from './component/Header/AccountHeader';
+import AddTaiKhoan from './component/Header/AddAccountHeader';
+import ThemThietBi from './component/Header/AddDeviceHeader';
+import AddVaiTro from './component/Header/AddRoleHeader';
+import AddDichVu from './component/Header/AddServiceHeader';
+import AddCapSo from './component/Header/AddlevelNHeader';
+import Trangchu from './component/Header/DashBoardHeader';
+import ChiTiet from './component/Header/DetailDeviceHeader';
+import DetailCapSo from './component/Header/DetailLevelHeader';
+import DetailDichVu from './component/Header/DetailServiceHeader';
+import NhatKyNguoiDung from './component/Header/DiaryHeader';
+import CapSo from './component/Header/LevelNHeader';
+import Profile from './component/Header/ProfileHeader';
+import BaoCao from './component/Header/ReportHeader';
+import VaiTro from './component/Header/RoleHeader';
+import DichVu from './component/Header/ServiceHeader';
+import UpdateTaiKhoan from './component/Header/UpdateAccountHeader';
+import UpdateThietBi from './component/Header/UpdateDeviceHeader';
+import UpdateVaiTro from './component/Header/UpdateRoleHeader';
+import UpdateDichVu from './component/Header/UpdateServiceHeader';
 import NavBar from './component/Sider';
-import BaoCao from './pages/BaoCao';
-import CaiDat from './pages/CaiDat';
-import CapSo from './pages/CapSo';
-import AddCapSo from './pages/CapSo/AddCapSo';
-import DetailCapSo from './pages/CapSo/DetailCapSo';
-import Trangchu from './pages/Dashboard';
-import DichVu from './pages/DichVu';
-import AddDichVu from './pages/DichVu/Add';
-import DetailDichVu from './pages/DichVu/Detail';
-import UpdateDichVu from './pages/DichVu/Update';
-import AuthEmail from './pages/EmailAuth.tsx';
-import Login from './pages/Login';
-import NhatKyNguoiDung from './pages/NhatKy';
-import Profile from './pages/Profile';
-import ResetPass from './pages/ResetPass';
-import TaiKhoan from './pages/TaiKhoan';
-import AddTaiKhoan from './pages/TaiKhoan/Add';
-import UpdateTaiKhoan from './pages/TaiKhoan/Update';
-import ThietBi from './pages/ThietBi';
-import ThemThietBi from './pages/ThietBi/Add';
-import ChiTiet from './pages/ThietBi/DetailThietBi';
-import UpdateThietBi from './pages/ThietBi/Update';
-import VaiTro from './pages/VaiTro';
-import AddVaiTro from './pages/VaiTro/Add';
-import UpdateVaiTro from './pages/VaiTro/Update';
+import CaiDat from './pages/CaiDat/Setting';
+import ThietBi from './pages/Device/DeviceHeader';
+import AuthEmail from './pages/EmailAuth.tsx/AuthEmail';
+import Login from './pages/Login/Login';
+import ResetPass from './pages/ResetPass/ResetPass';
+
 function App() {
     return (
         <BrowserRouter>
             <Layout>
                 <NavBar />
+
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/authemail" element={<AuthEmail />} />
@@ -55,11 +56,11 @@ function App() {
                     <Route path="/caidat" element={<CaiDat />} />
                     <Route path="/quanlyvaitro" element={<VaiTro />} />
                     <Route path="/quanlyvaitro/themvaitro" element={<AddVaiTro />} />
-                    <Route path="/quanlyvaitro/capnhatvaitro" element={<UpdateVaiTro />} />
+                    <Route path="/quanlyvaitro/capnhatvaitro/:id" element={<UpdateVaiTro />} />
                     <Route path="/quanlytaikhoan" element={<TaiKhoan />} />
                     <Route path="/quanlytaikhoan/themtaikhoan" element={<AddTaiKhoan />} />
-                    <Route path="/quanlytaikhoan/capnhat" element={<UpdateTaiKhoan />} />
-                    <Route path="/nhatkynguoidung" element={requireAuth() ? <NhatKyNguoiDung /> : <Navigate to="/" replace />} />
+                    <Route path="/quanlytaikhoan/capnhat/:id" element={<UpdateTaiKhoan />} />
+                    <Route path="/nhatkynguoidung" element={<NhatKyNguoiDung />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

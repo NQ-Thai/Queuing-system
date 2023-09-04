@@ -1,28 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../Type/User';
+import { Service } from '../Type/Service';
+import { ServiceTT } from '../Type/ServiceTT';
 
-export interface UserState {
-    users: User[];
+export interface ServiceTTState {
+    servicetts: ServiceTT[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: UserState = {
-    users: [],
+const initialState: ServiceTTState = {
+    servicetts: [],
     loading: false,
     error: null,
 };
 
-const userSlice = createSlice({
-    name: 'User',
+const serviceTTSlice = createSlice({
+    name: 'ServiceTT',
     initialState,
     reducers: {
         fetchDataStart: (state) => {
             state.loading = true;
             state.error = null;
         },
-        fetchDataSuccess: (state, action: PayloadAction<User[]>) => {
-            state.users = action.payload;
+        fetchDataSuccess: (state, action: PayloadAction<Service[]>) => {
+            state.servicetts = action.payload;
             state.loading = false;
             state.error = null;
         },
@@ -32,7 +33,6 @@ const userSlice = createSlice({
         },
     },
 });
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = serviceTTSlice.actions;
 
-export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = userSlice.actions;
-
-export default userSlice.reducer;
+export default serviceTTSlice.reducer;

@@ -1,13 +1,25 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
-import CapSoSlice from './CapSo/CapSoSlice';
-import dataSlice from './ThietBi/ThietBiReducer';
+import dataSlice from './Device/Device';
+import DiarySlide from './Diary/Diary';
+import levelNSlice from './LevelN/LevelN';
+import nofiSlice from './Nofication/Nofication';
+import nlevelSlice from './Number/Number';
+import roleSlice from './Role/Role';
+import serviceSlice from './Service/Service';
+import ServiceTT from './ServiceTT/ServiceTT';
 import UserSlice from './User/UserReducer';
 
 const store = configureStore({
     reducer: {
-        ThietBi: dataSlice,
+        Device: dataSlice,
+        Service: serviceSlice,
+        ServiceTT: ServiceTT,
         User: UserSlice,
-        CapSo: CapSoSlice,
+        CapSo: levelNSlice,
+        Role: roleSlice,
+        Diary: DiarySlide,
+        NLevel: nlevelSlice,
+        Nofi: nofiSlice,
     },
 });
 

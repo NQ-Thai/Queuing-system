@@ -94,6 +94,67 @@
     text-align: left;
 }
 
+/* Thông báo */
+.notification-list-scroll {
+    max-height: 300px; /* Kích thước tối đa cho khung thông báo */
+    overflow-y: scroll; /* Sử dụng thanh cuộn dọc */
+    scrollbar-width: thin; /* Đặt kích thước thanh cuộn */
+    scrollbar-color: orange transparent; /* Màu thanh cuộn */
+}
+
+/* Định dạng thanh cuộn trên Firefox */
+.notification-list-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notification-list-scroll::-webkit-scrollbar-thumb {
+    background-color: orange;
+    border-radius: 4px;
+}
+
+.notification-list-scroll::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Màu nền cho phần header (màu cam) */
+/* Cài đặt kích thước cho thông báo */
+.notification-container {
+    position: absolute;
+    width: 360px; /* Chiều rộng 360px */
+    height: 526px; /* Chiều dài 526px */
+    border-radius: 5px;
+    padding: 0; /* Loại bỏ padding để tùy chỉnh padding cho header và nội dung riêng */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    background-color: #fff; /* Màu cam với độ trong suốt */
+    border-radius: 12px;
+}
+
+.notification-container-2 {
+    position: absolute;
+    width: 360px; /* Chiều rộng 360px */
+    height: 526px; /* Chiều dài 526px */
+    border-radius: 5px;
+    padding: 0; /* Loại bỏ padding để tùy chỉnh padding cho header và nội dung riêng */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    background-color: #fff; /* Màu cam với độ trong suốt */
+    border-radius: 12px;
+}
+
+/* Cài đặt màu nền cho phần header (màu cam) */
+.notification-header {
+    border-radius: 12px 12px 0 0;
+    background-color: #ff9138;
+    /* Các thuộc tính CSS khác cho phần header */
+}
+
+/* Cài đặt màu nền cho phần nội dung (màu trắng) */
+.notification-content {
+    background-color: #fff;
+    /* Các thuộc tính CSS khác cho phần nội dung */
+}
+
 /* Sider */
 
 :where(.css-dev-only-do-not-override-19gw05y).ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title,

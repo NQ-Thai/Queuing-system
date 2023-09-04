@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { collection, getDocs } from 'firebase/firestore';
-import { User } from '../Type/User';
+import { Diary } from '../Type/Diary';
 import { firestore } from '../firebase';
 
-export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => {
-    const dataRef = collection(firestore, 'user');
+export const fetchData = createAsyncThunk<Diary[]>('nhatky/fetchData', async () => {
+    const dataRef = collection(firestore, 'nhatky');
     const snapshot = await getDocs(dataRef);
-    const data: User[] = snapshot.docs.map((doc, index) => {
+    const data: Diary[] = snapshot.docs.map((doc, index) => {
         const data = doc.data();
         return {
             id: doc.id,
@@ -17,15 +16,15 @@ export const fetchData = createAsyncThunk<User[]>('user/fetchData', async () => 
     });
     return data;
 });
-const UserSlice = createSlice({
-    name: 'user',
-    initialState: { user: [] as User[] },
+const diarySlice = createSlice({
+    name: 'nhatky',
+    initialState: { diarys: [] as Diary[] },
     reducers: {},
     extraReducers(builder) {
         builder.addCase(fetchData.fulfilled, (state, action) => {
-            state.user = action.payload;
+            state.diarys = action.payload;
         });
     },
 });
 
-export default UserSlice.reducer;
+export default diarySlice.reducer;

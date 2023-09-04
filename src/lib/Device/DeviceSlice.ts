@@ -1,28 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../Type/User';
+import { Device } from '../Type/Device';
 
-export interface UserState {
-    users: User[];
+export interface DeviceState {
+    devices: Device[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: UserState = {
-    users: [],
+const initialState: DeviceState = {
+    devices: [],
     loading: false,
     error: null,
 };
 
-const userSlice = createSlice({
-    name: 'User',
+const deviceSlice = createSlice({
+    name: 'Device',
     initialState,
     reducers: {
         fetchDataStart: (state) => {
             state.loading = true;
             state.error = null;
         },
-        fetchDataSuccess: (state, action: PayloadAction<User[]>) => {
-            state.users = action.payload;
+        fetchDataSuccess: (state, action: PayloadAction<Device[]>) => {
+            state.devices = action.payload;
             state.loading = false;
             state.error = null;
         },
@@ -32,7 +32,6 @@ const userSlice = createSlice({
         },
     },
 });
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = deviceSlice.actions;
 
-export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = userSlice.actions;
-
-export default userSlice.reducer;
+export default deviceSlice.reducer;

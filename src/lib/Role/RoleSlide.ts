@@ -1,28 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../Type/User';
+import { Role } from '../Type/Role';
 
-export interface UserState {
-    users: User[];
+export interface RoleState {
+    roles: Role[];
     loading: boolean;
     error: string | null;
 }
 
-const initialState: UserState = {
-    users: [],
+const initialState: RoleState = {
+    roles: [],
     loading: false,
     error: null,
 };
 
-const userSlice = createSlice({
-    name: 'User',
+const roleSlice = createSlice({
+    name: 'Role',
     initialState,
     reducers: {
         fetchDataStart: (state) => {
             state.loading = true;
             state.error = null;
         },
-        fetchDataSuccess: (state, action: PayloadAction<User[]>) => {
-            state.users = action.payload;
+        fetchDataSuccess: (state, action: PayloadAction<Role[]>) => {
+            state.roles = action.payload;
             state.loading = false;
             state.error = null;
         },
@@ -32,7 +32,6 @@ const userSlice = createSlice({
         },
     },
 });
+export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = roleSlice.actions;
 
-export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } = userSlice.actions;
-
-export default userSlice.reducer;
+export default roleSlice.reducer;
